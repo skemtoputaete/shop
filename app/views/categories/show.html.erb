@@ -1,0 +1,17 @@
+<div>
+  <b>Название категории : <%= @category.name %> </b>
+<div>
+
+<div>
+  <table>
+    <tr>
+      <th>Название товара</th>
+    </tr>
+
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+      </tr>
+      <% end %>
+  </table>
+<div>
