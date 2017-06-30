@@ -5,6 +5,8 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @products = @category.products
+    #@products = Product.where(category_id: @category.children.split(',') )
+    #@category.products
+    @subcategories = Category.where(parentId: @category.id)
   end
 end

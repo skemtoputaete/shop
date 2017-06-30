@@ -5,13 +5,13 @@
 <div>
   <table>
     <tr>
-      <th>Название товара</th>
+      <th>Название подкатегории</th>
     </tr>
 
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.name %></td>
-      </tr>
-      <% end %>
+    <% @subcategories.each do |subcategory| %>
+    <tr>
+      <td><%= link_to(subcategory.name, category_path(subcategory)) %></td>
+    </tr>
+    <% end %>
   </table>
 <div>
