@@ -2,6 +2,7 @@
   <b>Название категории : <%= @category.name %> </b>
 <div>
 
+<% if ( @subcategories.count > 0 ) then %>
 <div>
   <table>
     <tr>
@@ -9,9 +10,33 @@
     </tr>
 
     <% @subcategories.each do |subcategory| %>
+    <%
+      if @dontshow.include? subcategory.id then
+        next
+      end
+    %>
     <tr>
-      <td><%= link_to(subcategory.name, category_path(subcategory)) %></td>
+      <td>
+        <%= link_to(subcategory.name, category_path(subcategory)) %>
+      </td>
     </tr>
     <% end %>
   </table>
+</div>
+<% end %>
+
+<% $products = Product.where(category_id: @category.id) %>
+<% if ( $products.count != 0) then%>
+<table>
+    <tr>
+      <th>Название товара</th>
+    </tr>
+<% $products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+    </tr>
+<% end %>
+</table>
+<% end %>
+
 <div>
