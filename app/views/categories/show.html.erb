@@ -6,6 +6,10 @@
   <table class="subcategory">
     <tr>
       <th>Название подкатегории</th>
+      <% if can? :manage, Category then %>
+      <th> </th>
+      <th> </th>
+      <% end %>
     </tr>
 
     <% @subcategories.each do |subcategory| %>
@@ -15,9 +19,11 @@
       end
     %>
     <tr>
-      <td>
-        <%= link_to(subcategory.name, category_path(subcategory)) %>
-      </td>
+      <td> <%= link_to(subcategory.name, category_path(subcategory)) %> </td>
+      <% if can? :manage, Category then %>
+      <td> <%= link_to "Редактировать", edit_category_path(subcategory) %> </td>
+      <td> <%= link_to "Удалить", category_path(subcategory), method: :delete %> </td>
+      <% end %>
     </tr>
     <% end %>
 </table>

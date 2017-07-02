@@ -4,11 +4,19 @@
   <tr>
     <th>Название категории</th>
     <th>Ссылка на все товары из данной категории<th>
+    <% if can? :manage, Category then %>
+    <th> </th>
+    <th> </th>
+    <% end %>
   </tr>
   <% @categories.each do |category| %>
     <tr>
       <td><%= category.name %> </td>
       <td><%= link_to 'Показать все товары из данной категории', category_path(category)%> </td>
+      <% if can? :manage, Category then %>
+      <td> <%= link_to "Редактировать", edit_category_path(category) %> </td>
+      <td> <%= link_to "Удалить", category_path(category), method: :delete %> </td>
+      <% end %>
     </tr>
   <% end %>
 </table>

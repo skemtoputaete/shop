@@ -1,16 +1,32 @@
 class CategoriesController < ApplicationController
   load_and_authorize_resource
+
   def index
     @categories = Category.where("parentId = 0")
 
     @dontshow = Array.new
 
-    @categories.each do |category|
-      check = checkCategory(category)
-      if (!check) then
-        @dontshow.push(category.id)
-      end
-    end
+    #@categories.each do |category|
+    #  check = checkCategory(category)
+    #  if (!check) then
+    #    @dontshow.push(category.id)
+    #  end
+    #end
+  end
+
+  def edit
+    @category = Category.find(params[:id])
+  end
+
+  def update
+    @category = Category.find(params[:id])
+    @category.update(category_params)
+    redirect_to @category
+  end
+
+  def destroy
+    @category = Category.find(params[:id])
+    deleteCategory @category
   end
 
   def show
@@ -29,11 +45,26 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def edit
-
+  private
+  def category_params
+    params.require(:category).permit(:name)
   end
 
-  private
+  #Используется для удаления категории
+  #Для того, чтобы удалить категорию, необходимо также удалить все подкатегории
+  #принадлежащие ей
+  def deleteCategory(category)
+    subcategories = Category.where(parentId: category_id)
+
+    subcategories.each do |subcategory|
+      deleteCategory subcategory
+      Product.destroy_all(category_id: subcategory.id)
+      Category.destroy(subcategory.id)
+    end
+  end
+
+  #Используется для проверки подкатегории каждой категории
+  #При принятии решения о том, стоит ли выводить категорию в список
   def checkCategory(category)
     #Для каждой категории находим подкатегорию
     subcategories = Category.where(parentId: category.id)
@@ -73,7 +104,7 @@ class CategoriesController < ApplicationController
       return false
     end
 
-    #В противном случае, когда подкатегории нет собственных товаров, но есть потомки
+    #В противном случае, когда у подкатегории нет собственных товаров, но есть потомки
     #Потомков подкатегории необходимо исследовать дополнительно, т.к. у них могут быть товары
     #Если хотя бы один потомок имеет товары, то подкатегорию необходимо вывести
     children = Category.where(parentId: subcategory.id)

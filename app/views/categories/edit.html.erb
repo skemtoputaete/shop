@@ -1,6 +1,10 @@
-<%= form_for :category do |c| %>
+<%= form_for :category, url: category_path, method: :patch do |c|  %>
   <p>
-    <%= c.label :name %>
-    <%= c.text_area :name %>
+    <%= c.label :name %> <br>
+    <%= c.text_area :name, size: "60x10"%>
+  </p>
+
+  <p>
+    <%= c.submit "Сохранить изменения" %>
   </p>
 <% end %>

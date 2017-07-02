@@ -1,6 +1,6 @@
 Редактирование <%= @product.name %>
 
-<%= form_for :product do |p| %>
+<%= form_for :product, url: product_path, method: :patch do |p| %>
   <p>
     <%= p.label :name, "Наименование" %> <br>
     <%= p.text_field :name%>
