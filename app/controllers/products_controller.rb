@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
 
   def destroy
     Product.destroy(params[:id])
-    redirect_to categories_path
+    redirect_back(fallback_location: root_path)
   end
 
   private
