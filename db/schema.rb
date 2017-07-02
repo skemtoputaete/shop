@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630115944) do
+ActiveRecord::Schema.define(version: 20170702093935) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.datetime "created_at", null: false
@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 20170630115944) do
   end
 
   create_table "ms_product", id: :integer, limit: 3, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "categoryId", limit: 2, default: 0, null: false, unsigned: true
+    t.integer "category_id", limit: 2, unsigned: true
     t.string "sale", null: false
     t.string "author", null: false
-    t.integer "rating", limit: 2, default: 0, null: false, unsigned: true
+    t.integer "rating", limit: 3, unsigned: true
     t.string "series", null: false
     t.string "cover", limit: 50, null: false
     t.string "ISBN", null: false
@@ -52,6 +52,23 @@ ActiveRecord::Schema.define(version: 20170630115944) do
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end
