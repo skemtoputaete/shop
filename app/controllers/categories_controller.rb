@@ -1,12 +1,19 @@
 class CategoriesController < ApplicationController
+  load_and_authorize_resource
   def index
-    @categories = Category.all
+    @categories = Category.where("parentId = 0")
+
+    @dontshow = Array.new
+
+    @categories.each do |category|
+      check = checkCategory(category)
+      if (!check) then
+        @dontshow.push(category.id)
+      end
+    end
   end
 
   def show
-    #@products = Product.where(category_id: @category.children.split(',') )
-    #@category.products
-
     @category = Category.find(params[:id])
     @subcategories = Category.where(parentId: @category.id)
 
@@ -23,6 +30,23 @@ class CategoriesController < ApplicationController
   end
 
   private
+  def checkCategory(category)
+    #Для каждой категории находим подкатегорию
+    subcategories = Category.where(parentId: category.id)
+
+    #Каждую подкатегорию проверяем
+    subcategories.each do |subcategory|
+      check = checkSubcategory(subcategory)
+      if(check) then
+        return true
+      end
+    end
+
+    #Если ни одна из подкатегорий не удовлетворила критерию поиска
+    #Возвращаем ложное значение
+    return false
+  end
+
   def checkSubcategory(subcategory)
     #hasChildren - флаг, говорящий о том, есть ли у подкатегории потомки
     #hasChildren == true - потомки есть

@@ -1,10 +1,9 @@
 <div>
-  <b>Название категории : <%= @category.name %> </b>
+  Название категории : <b> <%= @category.name %> </b>
 <div>
 
 <% if ( @subcategories.count > 0 ) then %>
-<div>
-  <table>
+  <table class="subcategory">
     <tr>
       <th>Название подкатегории</th>
     </tr>
@@ -21,22 +20,26 @@
       </td>
     </tr>
     <% end %>
-  </table>
-</div>
+</table>
 <% end %>
 
 <% $products = Product.where(category_id: @category.id) %>
 <% if ( $products.count != 0) then%>
-<table>
+<table class="products">
     <tr>
       <th>Название товара</th>
+      <th>Цена товара</th>
+      <th></th>
     </tr>
 <% $products.each do |product| %>
     <tr>
       <td><%= product.name %></td>
+      <td><%= product.price %></td>
+      <td><img src="<%= product.picture %>"></td>
+      <% if can? :manage, Product then%>
+      <td><%= link_to "Редактировать", edit_product_path(product.id)%></td>
+      <% end %>
     </tr>
 <% end %>
 </table>
 <% end %>
-
-<div>

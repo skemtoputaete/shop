@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Shop</title>
+    <title>Интернет-магазин</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,15 +9,22 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="nav">
     <% if user_signed_in? %>
-      signed in as <%= current_user.email %>
-      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+      Вы вошли как <%= current_user.email %>.
+      <%= link_to "Выйти", destroy_user_session_path, :method => :delete %>
+      <%= link_to "Редактировать профиль", edit_user_registration_path%>
     <% else %>
-      <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+      <%= link_to "Зарегистрироваться", new_user_registration_path %> или <%= link_to "войти", new_user_session_path %>
     <% end %>
 
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, id: "flash_#{name}" %>
+    <% end %>
+  </div>
+
+    <div class="content">
     <%= yield %>
+  </div>
   </body>
 </html>
