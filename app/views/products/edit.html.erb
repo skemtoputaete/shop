@@ -1,0 +1,19 @@
+Редактирование <%= @product.name %>
+
+<%= form_for :product do |p| %>
+  <p>
+    <%= p.label :name, "Наименование" %> <br>
+    <%= p.text_field :name%>
+  </p>
+  <p>
+    <%= p.label :price, "Стоиомость" %> <br>
+    <%= p.text_field :price %>
+  </p>
+  <p>
+    <%= p.label :description, "Описание" %> <br>
+    <%= p.text_area :description, size: "80x15" %>
+  </p>
+  <p>
+    <%= p.submit "Сохранить изменения" %>
+  </p>
+<% end %>

@@ -29,6 +29,10 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def edit
+
+  end
+
   private
   def checkCategory(category)
     #Для каждой категории находим подкатегорию
