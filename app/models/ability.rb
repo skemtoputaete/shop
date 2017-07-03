@@ -11,6 +11,7 @@ class Ability
 
        if user.admin_role? then
          can :manage, :all
+         can :manage, :administrator
        end
        if user.supervisor_role? then
          can :manage, Product

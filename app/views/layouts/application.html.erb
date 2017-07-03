@@ -9,6 +9,11 @@
   </head>
 
   <body>
+    <div>
+      <%= link_to "Главная страница", root_path %>
+      <%= link_to "Категории товара", categories_path %>
+      <%= link_to "Товары", products_path %>
+    </div>
     <div class="nav">
     <% if user_signed_in? %>
       Вы вошли как <%= current_user.email %>.

@@ -1,0 +1,30 @@
+<%= form_for :user, url: administrator_index_path do |u|  %>
+  <p>
+    <%= u.label :email, "email" %> <br>
+    <%= u.text_field :email%>
+  </p>
+
+  <p>
+    <%= u.label :password, "Новый пароль" %> <br>
+    <%= u.password_field :password, autocomplete: "off" %>
+  </p>
+
+  <p>
+    <%= u.label :password_confirmation, "Подтверждение пароля" %><br />
+    <%= u.password_field :password_confirmation, autocomplete: "off" %>
+  </p>
+
+  <p>
+    Права для пользователя: <br>
+    <%= u.label(:admin_role, "Права администратора") %>
+    <%= u.check_box(:admin_role) %> <br>
+    <%= u.label(:supervisor_role, "Права модератора") %>
+    <%= u.check_box(:supervisor_role) %> <br>
+    <%= u.label(:user_role, "Права пользователя") %>
+    <%= u.check_box(:user_role) %> <br>
+  </p>
+
+  <p>
+    <%= u.submit "Создать нового пользователя" %>
+  </p>
+<% end %>
