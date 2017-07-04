@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <div class ="nav">
+    <div class ="nav navbar-fixed-top navbar-default">
       <ul class="nav nav-tabs">
         <li><%= link_to "Главная страница", root_path, :data => {:togle => "tab"} %></li>
         <li><%= link_to "Категории товара", categories_path, :data => {:togle => "tab"} %></li>
@@ -36,13 +36,15 @@
   </div>
 
   <% flash.each do |name, msg| %>
-  <div class="alert alert-info alert-dismissable">
+  <div class="alert alert-info alert-dismissable" style="padding-top: 50px">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
     <%= msg %>
   </div>
   <% end %>
-  <div class="container">
+
+  <div class="container" style="padding-top: 40px">
     <%= yield %>
   </div>
+
   </body>
 </html>

@@ -1,14 +1,18 @@
-<h1>Основные категории товаров</h1>
+<div class="hero-unit text-center">
+  <h1>Основные категории товаров</h1>
+</div>
 
-<table class="category">
-  <tr>
-    <th>Название категории</th>
-    <th>Ссылка на все товары из данной категории<th>
-    <% if can? :manage, Category then %>
-    <th> </th>
-    <th> </th>
-    <% end %>
-  </tr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Название категории</th>
+      <th>Ссылка на все товары из данной категории<th>
+      <% if can? :manage, Category then %>
+      <th colspan="2" class="text-center">Доступные действия</th>
+      <% end %>
+    </tr>
+</thead>
+<tbody>
   <% @categories.each do |category| %>
     <tr>
       <td><%= category.name %> </td>
@@ -19,4 +23,5 @@
       <% end %>
     </tr>
   <% end %>
+</tbody>
 </table>

@@ -1,19 +1,27 @@
-Редактирование <%= @product.name %>
-
+<div style="padding-top: 10px" class="form-horizontal">
 <%= form_for :product, url: product_path, method: :patch do |p| %>
-  <p>
-    <%= p.label :name, "Наименование" %> <br>
-    <%= p.text_field :name%>
-  </p>
-  <p>
-    <%= p.label :price, "Стоиомость" %> <br>
-    <%= p.text_field :price %>
-  </p>
-  <p>
-    <%= p.label :description, "Описание" %> <br>
-    <%= p.text_area :description, size: "80x15" %>
-  </p>
-  <p>
-    <%= p.submit "Сохранить изменения" %>
-  </p>
+  <div class="form-group">
+    <%= p.label :name, "Наименование", class: "col-xs-2 control-label" %>
+    <div class="col-xs-10">
+    <%= p.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= p.label :price, "Стоиомость", class: "col-xs-2 control-label" %>
+    <div class="col-xs-10">
+    <%= p.text_field :price,class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= p.label :description, "Описание", class: "col-xs-2 control-label" %>
+    <div class="col-xs-10">
+    <%= p.text_area :description, size: "80x15", class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-offset-2 col-xs-10">
+    <%= p.submit "Сохранить изменения", class: "btn btn-default" %>
+    </div>
+  </div>
 <% end %>
+</div>

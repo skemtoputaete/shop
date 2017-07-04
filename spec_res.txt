@@ -1,0 +1,152 @@
+F
+
+Failures:
+
+  1) CategoriesController show controller paginator
+     Failure/Error: expect(category.products.paginate(page: 1, per_page: 5)).to eq assigns(@pp)
+
+       expected: {"marked_for_same_origin_verification"=>true, "category"=>#<Category id: 3708, name: "name", parentId...oryId: 0, book: "Y", price: #<BigDecimal:742f980,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>]>}
+            got: #<ActiveRecord::AssociationRelation [#<Product id: 97, category_id: 3708, sale: "sale", author: "auth...goryId: 0, book: "Y", price: #<BigDecimal:7422a28,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>]>
+
+       (compared using ==)
+
+       Diff:
+       @@ -1,10 +1,121 @@
+       -"_authorized" => true,
+       -"category" => #<Category id: 3708, name: "name", parentId: 0, children: "">,
+       -"current_ability" => #<Ability:0x000000077a2e28 @rules=[#<CanCan::Rule:0x000000075a6ca0 @match_all=false, @base_behavior=true, @actions=[:read], @subjects=[Product(id: integer, category_id: integer, sale: string, author: string, rating: integer, series: string, cover: string, ISBN: string, url: string, producer: string, new: integer, picture: string, visible: string, volume: integer, availabilityCode: boolean, name: string, description: text, topCategoryId: integer, book: string, price: decimal, md5: string, year: string, pages: integer)], @conditions={}, @block=nil>, #<CanCan::Rule:0x000000075a6868 @match_all=false, @base_behavior=true, @actions=[:read], @subjects=[Category(id: integer, name: string, parentId: integer, children: text)], @conditions={}, @block=nil, @expanded_actions=[:read, :index, :show]>], @rules_index={Product(id: integer, category_id: integer, sale: string, author: string, rating: integer, series: string, cover: string, ISBN: string, url: string, producer: string, new: integer, picture: string, visible: string, volume: integer, availabilityCode: boolean, name: string, description: text, topCategoryId: integer, book: string, price: decimal, md5: string, year: string, pages: integer)=>[0], Category(id: integer, name: string, parentId: integer, children: text)=>[1], #<Category id: 3708, name: "name", parentId: 0, children: "">=>[], :all=>[], Category::GeneratedAssociationMethods=>[], #<#<Class:0x000000079b8b90>:0x000000079b8c08>=>[], ApplicationRecord(abstract)=>[], ApplicationRecord::GeneratedAssociationMethods=>[], #<#<Class:0x000000049187d8>:0x000000049188c8>=>[], ActiveRecord::Base=>[], GlobalID::Identification=>[], CanCan::ModelAdditions=>[], ActiveRecord::Suppressor=>[], ActiveRecord::SecureToken=>[], ActiveRecord::Store=>[], ActiveRecord::Serialization=>[], ActiveModel::Serializers::JSON=>[], ActiveModel::Serialization=>[], ActiveRecord::Reflection=>[], ActiveRecord::NoTouching=>[], ActiveRecord::TouchLater=>[], ActiveRecord::Transactions=>[], ActiveRecord::Aggregations=>[], ActiveRecord::NestedAttributes=>[], ActiveRecord::AutosaveAssociation=>[], ActiveModel::SecurePassword=>[], ActiveRecord::Associations=>[], ActiveRecord::Timestamp=>[], ActiveRecord::Callbacks=>[], ActiveRecord::AttributeMethods::Serialization=>[], ActiveRecord::AttributeMethods::Dirty=>[], ActiveModel::Dirty=>[], ActiveRecord::AttributeMethods::TimeZoneConversion=>[], ActiveRecord::AttributeMethods::PrimaryKey=>[], ActiveRecord::AttributeMethods::Query=>[], ActiveRecord::AttributeMethods::BeforeTypeCast=>[], ActiveRecord::AttributeMethods::Write=>[], ActiveRecord::AttributeMethods::Read=>[], ActiveRecord::Base::GeneratedAssociationMethods=>[], #<#<Class:0x00000006a23798>:0x00000006a23810>=>[], ActiveRecord::AttributeMethods=>[], ActiveModel::AttributeMethods=>[], ActiveModel::Validations::Callbacks=>[], ActiveRecord::DefineCallbacks=>[], ActiveRecord::Locking::Pessimistic=>[], ActiveRecord::Locking::Optimistic=>[], ActiveRecord::AttributeDecorators=>[], ActiveRecord::Attributes=>[], ActiveRecord::CounterCache=>[], ActiveRecord::Validations=>[], ActiveModel::Validations::HelperMethods=>[], ActiveSupport::Callbacks=>[], ActiveModel::Validations=>[], ActiveRecord::Integration=>[], ActiveModel::Conversion=>[], ActiveRecord::AttributeAssignment=>[], ActiveModel::AttributeAssignment=>[], ActiveModel::ForbiddenAttributesProtection=>[], #<Module:0x000000068edd88>=>[], ActiveRecord::Sanitization=>[], ActiveRecord::Scoping::Named=>[], ActiveRecord::Scoping::Default=>[], ActiveRecord::Scoping=>[], ActiveRecord::Inheritance=>[], ActiveRecord::ModelSchema=>[], ActiveRecord::ReadonlyAttributes=>[], ActiveRecord::Persistence=>[], ActiveRecord::Core=>[], ActiveSupport::ToJsonWithActiveSupportEncoder=>[], Object=>[], PP::ObjectMixin=>[], ActiveSupport::Dependencies::Loadable=>[], JSON::Ext::Generator::GeneratorMethods::Object=>[], ActiveSupport::Tryable=>[], Kernel=>[], BasicObject=>[], "Class"=>[]}, @expanded_actions={[:index, :show]=>[:index, :show], [:read]=>[:read, :index, :show]}, @aliased_actions={:read=>[:index, :show], :create=>[:new], :update=>[:edit]}>,
+       -"current_user" => nil,
+       -"dontshow" => [],
+       -"marked_for_same_origin_verification" => true,
+       -"pp" => #<ActiveRecord::Relation [#<Product id: 97, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product1", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:7194e28,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 98, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product2", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:7195850,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 99, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product3", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:71931e0,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 100, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product4", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:71922b8,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 101, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product5", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:7191390,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>]>,
+       -"products" => #<ActiveRecord::Relation [#<Product id: 97, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product1", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:718c868,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 98, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product2", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:718b288,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 99, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product3", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:718a310,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 100, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product4", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:7189410,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 101, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product5", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:7188498,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 102, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product6", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:71875e8,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 103, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product7", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:7186698,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>, #<Product id: 104, category_id: 3708, sale: "sale", author: "author", rating: nil, series: "series", cover: "cover", ISBN: "isnb", url: "url", producer: "producer", new: 0, picture: "picture", visible: "Y", volume: 0, availabilityCode: true, name: "product8", description: "description", topCategoryId: 0, book: "Y", price: #<BigDecimal:71856d0,'0.1E2',9(18)>, md5: "md5", year: nil, pages: 0>]>,
+       -"subcategories" => #<ActiveRecord::Relation []>,
+       +[#<Product:0x00000007509cc0
+       +  id: 97,
+       +  category_id: 3708,
+       +  sale: "sale",
+       +  author: "author",
+       +  rating: nil,
+       +  series: "series",
+       +  cover: "cover",
+       +  ISBN: "isnb",
+       +  url: "url",
+       +  producer: "producer",
+       +  new: 0,
+       +  picture: "picture",
+       +  visible: "Y",
+       +  volume: 0,
+       +  availabilityCode: true,
+       +  name: "product1",
+       +  description: "description",
+       +  topCategoryId: 0,
+       +  book: "Y",
+       +  price: #<BigDecimal:742e580,'0.1E2',9(18)>,
+       +  md5: "md5",
+       +  year: nil,
+       +  pages: 0>,
+       + #<Product:0x000000075097c0
+       +  id: 98,
+       +  category_id: 3708,
+       +  sale: "sale",
+       +  author: "author",
+       +  rating: nil,
+       +  series: "series",
+       +  cover: "cover",
+       +  ISBN: "isnb",
+       +  url: "url",
+       +  producer: "producer",
+       +  new: 0,
+       +  picture: "picture",
+       +  visible: "Y",
+       +  volume: 0,
+       +  availabilityCode: true,
+       +  name: "product2",
+       +  description: "description",
+       +  topCategoryId: 0,
+       +  book: "Y",
+       +  price: #<BigDecimal:742d720,'0.1E2',9(18)>,
+       +  md5: "md5",
+       +  year: nil,
+       +  pages: 0>,
+       + #<Product:0x000000075092e8
+       +  id: 99,
+       +  category_id: 3708,
+       +  sale: "sale",
+       +  author: "author",
+       +  rating: nil,
+       +  series: "series",
+       +  cover: "cover",
+       +  ISBN: "isnb",
+       +  url: "url",
+       +  producer: "producer",
+       +  new: 0,
+       +  picture: "picture",
+       +  visible: "Y",
+       +  volume: 0,
+       +  availabilityCode: true,
+       +  name: "product3",
+       +  description: "description",
+       +  topCategoryId: 0,
+       +  book: "Y",
+       +  price: #<BigDecimal:742c848,'0.1E2',9(18)>,
+       +  md5: "md5",
+       +  year: nil,
+       +  pages: 0>,
+       + #<Product:0x00000007508d70
+       +  id: 100,
+       +  category_id: 3708,
+       +  sale: "sale",
+       +  author: "author",
+       +  rating: nil,
+       +  series: "series",
+       +  cover: "cover",
+       +  ISBN: "isnb",
+       +  url: "url",
+       +  producer: "producer",
+       +  new: 0,
+       +  picture: "picture",
+       +  visible: "Y",
+       +  volume: 0,
+       +  availabilityCode: true,
+       +  name: "product4",
+       +  description: "description",
+       +  topCategoryId: 0,
+       +  book: "Y",
+       +  price: #<BigDecimal:7423950,'0.1E2',9(18)>,
+       +  md5: "md5",
+       +  year: nil,
+       +  pages: 0>,
+       + #<Product:0x000000075088e8
+       +  id: 101,
+       +  category_id: 3708,
+       +  sale: "sale",
+       +  author: "author",
+       +  rating: nil,
+       +  series: "series",
+       +  cover: "cover",
+       +  ISBN: "isnb",
+       +  url: "url",
+       +  producer: "producer",
+       +  new: 0,
+       +  picture: "picture",
+       +  visible: "Y",
+       +  volume: 0,
+       +  availabilityCode: true,
+       +  name: "product5",
+       +  description: "description",
+       +  topCategoryId: 0,
+       +  book: "Y",
+       +  price: #<BigDecimal:7422a28,'0.1E2',9(18)>,
+       +  md5: "md5",
+       +  year: nil,
+       +  pages: 0>]
+     # ./spec/controllers/categories_controller_spec.rb:35:in `block (3 levels) in <top (required)>'
+
+Finished in 0.41779 seconds (files took 2.98 seconds to load)
+1 example, 1 failure
+
+Failed examples:
+
+rspec ./spec/controllers/categories_controller_spec.rb:12 # CategoriesController show controller paginator
+

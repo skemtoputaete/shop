@@ -60,5 +60,8 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 group :test do
   gem 'rspec-rails'
-  gem 'factory_girl'
+  gem 'factory_girl_rails'
+  gem 'rails-controller-testing'
 end
+gem 'will_paginate', '~> 3.1.0'
+gem 'will_paginate-bootstrap'

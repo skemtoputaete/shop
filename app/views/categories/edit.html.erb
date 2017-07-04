@@ -1,10 +1,15 @@
+<div style="padding-top: 10px" class="form-horizontal">
 <%= form_for :category, url: category_path, method: :patch do |c|  %>
-  <p>
-    <%= c.label :name %> <br>
-    <%= c.text_area :name, size: "60x10"%>
-  </p>
-
-  <p>
-    <%= c.submit "Сохранить изменения" %>
-  </p>
+  <div class="form-group">
+    <%= c.label :name,  "Название категории", class: "col-xs-2 control-label"%>
+    <div class="col-xs-10">
+    <%= c.text_field :name, class: "form-control"%>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-xs-offset-2 col-xs-10">
+      <p><%= c.submit "Сохранить изменения", class: "btn btn-default" %></p>
+    </div>
+  </div>
 <% end %>
+</div>

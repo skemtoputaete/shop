@@ -43,6 +43,8 @@ class CategoriesController < ApplicationController
         @dontshow.push(subcategory.id)
       end
     end
+
+    @products = Product.where(category_id: params[:id]).paginate(page: params[:page], per_page: 5)
   end
 
   private

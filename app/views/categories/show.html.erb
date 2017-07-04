@@ -1,15 +1,17 @@
-<div class="Hero">
-  Название категории : <b> <%= @category.name %> </b>
-<div>
-<br>
+<div class="hero-unit text-center">
+  <h2><%= @category.name %></h2>
+</div>
+
 <% if ( @subcategories.count > 0 ) then %>
 <table class="table table-hover">
+  <thead>
     <tr>
       <th class="text-center">Название подкатегории</th>
       <% if can? :manage, Category then %>
       <th colspan="2" class="text-center"> Доступные действия над категориями </th>
       <% end %>
     </tr>
+  </thead>
 
     <% @subcategories.each do |subcategory| %>
     <%
@@ -17,6 +19,7 @@
         next
       end
     %>
+  <tbody>
     <tr>
       <td class="text-center"> <%= link_to(subcategory.name, category_path(subcategory)) %> </td>
       <% if can? :manage, Category then %>
@@ -25,11 +28,11 @@
       <% end %>
     </tr>
     <% end %>
+  </tbody>
 </table>
 <% end %>
 
-<% $products = Product.where(category_id: @category.id) %>
-<% if ( $products.count != 0) then%>
+<% if ( @products.count != 0) then%>
 <table class="table table-hover">
     <tr>
       <th class="text-center">Название товара</th>
@@ -39,7 +42,7 @@
       <th colspan="2" class="text-center">Действия</th>
       <% end %>
     </tr>
-<% $products.each do |product| %>
+<% @products.each do |product| %>
     <tr>
       <td class="text-center"><%= link_to product.name, product_path(product) %></td>
       <td class="text-center"><%= product.price %></td>
@@ -52,3 +55,6 @@
 <% end %>
 </table>
 <% end %>
+<div class="text-center">
+<%= will_paginate @products, renderer: BootstrapPagination::Rails %>
+</div>
