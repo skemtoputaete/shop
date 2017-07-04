@@ -1,19 +1,24 @@
 <div class="hero-unit text-center">
-  <h1>Основные категории товаров</h1>
+  <h2>Основные категории товаров</h2>
 </div>
 
-<table class="table table-hover">
+<table class="table table-hover text-center">
   <thead>
     <tr>
       <th>Название категории</th>
-      <th>Ссылка на все товары из данной категории<th>
+      <th>Ссылка на все товары из данной категории</th>
       <% if can? :manage, Category then %>
-      <th colspan="2" class="text-center">Доступные действия</th>
+      <th colspan="2"> Доступные действия над категориями </th>
       <% end %>
     </tr>
-</thead>
-<tbody>
+  </thead>
+  <tbody>
   <% @categories.each do |category| %>
+  <%
+    if (@dontshow.include? category.id) then
+      next
+    end
+  %>
     <tr>
       <td><%= category.name %> </td>
       <td><%= link_to 'Показать все товары из данной категории', category_path(category)%> </td>
@@ -23,5 +28,5 @@
       <% end %>
     </tr>
   <% end %>
-</tbody>
+  </tbody>
 </table>

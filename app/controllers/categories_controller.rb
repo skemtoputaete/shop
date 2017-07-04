@@ -6,12 +6,12 @@ class CategoriesController < ApplicationController
 
     @dontshow = Array.new
 
-    #@categories.each do |category|
-    #  check = checkCategory(category)
-    #  if (!check) then
-    #    @dontshow.push(category.id)
-    #  end
-    #end
+    # @categories.each do |category|
+    #   check = checkCategory(category)
+    #   if (!check) then
+    #     @dontshow.push(category.id)
+    #   end
+    # end
   end
 
   def edit

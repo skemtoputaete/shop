@@ -13,13 +13,13 @@
     </tr>
   </thead>
 
-    <% @subcategories.each do |subcategory| %>
-    <%
-      if @dontshow.include? subcategory.id then
-        next
-      end
-    %>
   <tbody>
+  <% @subcategories.each do |subcategory| %>
+  <%
+    if @dontshow.include? subcategory.id then
+      next
+    end
+  %>
     <tr>
       <td class="text-center"> <%= link_to(subcategory.name, category_path(subcategory)) %> </td>
       <% if can? :manage, Category then %>
@@ -27,13 +27,14 @@
       <td class="text-center"> <%= link_to "Удалить", category_path(subcategory), method: :delete %> </td>
       <% end %>
     </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 <% end %>
 
 <% if ( @products.count != 0) then%>
 <table class="table table-hover">
+  <thead>
     <tr>
       <th class="text-center">Название товара</th>
       <th class="text-center">Цена товара</th>
@@ -42,7 +43,9 @@
       <th colspan="2" class="text-center">Действия</th>
       <% end %>
     </tr>
-<% @products.each do |product| %>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
     <tr>
       <td class="text-center"><%= link_to product.name, product_path(product) %></td>
       <td class="text-center"><%= product.price %></td>
@@ -52,9 +55,10 @@
       <td class="text-center"><%= link_to "Удалить", product_path(product), method: :delete%></td>
       <% end %>
     </tr>
-<% end %>
-</table>
-<% end %>
-<div class="text-center">
-<%= will_paginate @products, renderer: BootstrapPagination::Rails %>
-</div>
+    <% end %>
+  </tbody>
+  </table>
+  <% end %>
+  <div class="text-center">
+    <%= will_paginate @products, renderer: BootstrapPagination::Rails %>
+  </div>
