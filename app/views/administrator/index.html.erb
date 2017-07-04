@@ -1,11 +1,16 @@
-<table>
+<h1 class="h3 page-header text-center">
+  Главная страница администратора
+</h1>
+
+<p class="text-center lead">Таблица с информацией о зарегестрированных пользователях</p>
+
+<table class="table">
   <tr>
     <th> Имя пользователя </th>
     <th> Права администратора </th>
     <th> Права модератора </th>
     <th> Права пользователя </th>
-    <th> Редактировать </th>
-    <th> Удалить </th>
+    <th colspan="2" class="text-center"> Управление пользователем </th>
   </tr>
 <% @users.each do |user| %>
   </tr>
@@ -13,8 +18,8 @@
     <td> <%= user.admin_role %> </td>
     <td> <%= user.supervisor_role %> </td>
     <td> <%= user.user_role %> </td>
-    <td> <%= link_to "Редактировать пользователя", edit_administrator_path(user.id), method: :get %> </td>
-    <td> <%= link_to "Удалить пользователя", administrator_path(user.id), method: :delete %> </td>
+    <td> <%= link_to "Редактировать", edit_administrator_path(user.id), method: :get %> </td>
+    <td> <%= link_to "Удалить", administrator_path(user.id), method: :delete %> </td>
   </tr>
 <% end %>
 </table>

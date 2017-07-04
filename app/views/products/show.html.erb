@@ -1,5 +1,13 @@
-<div class="prodinfo">
-<img src="<%= @product.picture %>">
-<p> Наименование: <%= @product.name %> </p>
-<p> Стоимость: <%= @product.price %> </p>
+<h2 class="h2 page-header text-center">
+  <%= @product.name %><small> описание</small>
+</h2>
+<div class="row">
+  <div class="col-xs-3">
+    <img class="img-responsive" src="<%= @product.picture %>">
+  </div>
+  <div class="col-xs-9">
+    <p class = "text-justify"> Стоимость: <%= @product.price %> </p>
+    <p class = "text-justify"> Рейтинг: <%= @product.rating %> </p>
+    <p class = "text-justify"> <%= @product.description %> </p>
+  </div>
 </div>

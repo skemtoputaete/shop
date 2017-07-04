@@ -56,3 +56,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'toastr-rails'
 gem 'cancancan'
+gem 'bootstrap-sass'
+gem 'jquery-rails'
+group :test do
+  gem 'rspec-rails'
+  gem 'factory_girl'
+end

@@ -1,14 +1,13 @@
-<div>
+<div class="Hero">
   Название категории : <b> <%= @category.name %> </b>
 <div>
-
+<br>
 <% if ( @subcategories.count > 0 ) then %>
-  <table class="subcategory">
+<table class="table table-hover">
     <tr>
-      <th>Название подкатегории</th>
+      <th class="text-center">Название подкатегории</th>
       <% if can? :manage, Category then %>
-      <th> </th>
-      <th> </th>
+      <th colspan="2" class="text-center"> Доступные действия над категориями </th>
       <% end %>
     </tr>
 
@@ -19,10 +18,10 @@
       end
     %>
     <tr>
-      <td> <%= link_to(subcategory.name, category_path(subcategory)) %> </td>
+      <td class="text-center"> <%= link_to(subcategory.name, category_path(subcategory)) %> </td>
       <% if can? :manage, Category then %>
-      <td> <%= link_to "Редактировать", edit_category_path(subcategory) %> </td>
-      <td> <%= link_to "Удалить", category_path(subcategory), method: :delete %> </td>
+      <td class="text-center"> <%= link_to "Редактировать", edit_category_path(subcategory) %> </td>
+      <td class="text-center"> <%= link_to "Удалить", category_path(subcategory), method: :delete %> </td>
       <% end %>
     </tr>
     <% end %>
@@ -31,23 +30,23 @@
 
 <% $products = Product.where(category_id: @category.id) %>
 <% if ( $products.count != 0) then%>
-<table class="products">
+<table class="table table-hover">
     <tr>
-      <th>Название товара</th>
-      <th>Цена товара</th>
+      <th class="text-center">Название товара</th>
+      <th class="text-center">Цена товара</th>
+      <th class="text-center">Превью</th>
       <% if can? :manage, Product then %>
-      <th></th>
-      <th></th>
+      <th colspan="2" class="text-center">Действия</th>
       <% end %>
     </tr>
 <% $products.each do |product| %>
     <tr>
-      <td><%= product.name %></td>
-      <td><%= product.price %></td>
-      <td><img src="<%= product.picture %>"></td>
+      <td class="text-center"><%= link_to product.name, product_path(product) %></td>
+      <td class="text-center"><%= product.price %></td>
+      <td class="text-center"><img class="img-rounded" style="max-width: 40%; max-heigth: 40%" src="<%= product.picture %>"></td>
       <% if can? :manage, Product then%>
-      <td><%= link_to "Редактировать", edit_product_path(product)%></td>
-      <td><%= link_to "Удалить", product_path(product), method: :delete%></td>
+      <td class="text-center"><%= link_to "Редактировать", edit_product_path(product)%></td>
+      <td class="text-center"><%= link_to "Удалить", product_path(product), method: :delete%></td>
       <% end %>
     </tr>
 <% end %>

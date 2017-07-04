@@ -1,10 +1,23 @@
-<h1> Магазин </h1>
-<h2> Все категории </h2>
-<% @categories.each do |category| %>
-  <%
-  if (@dontshow.include? category.id) then
-    next
-  end
-  %>
-  <p> <%= link_to( category.name, category_path(category)) %>
-<% end %>
+<div class="page-header text-center">
+  <h1> Главная страница интернет-магазина </h1>
+</div>
+<div>
+  <div>
+  <table class="table">
+    <tr>
+      <th class="text-center"> Все категории </th>
+    </tr>
+
+    <% @categories.each do |category| %>
+    <%
+      if (@dontshow.include? category.id) then
+        next
+      end
+    %>
+    <tr>
+      <td class="text-center"> <%= link_to( category.name, category_path(category)) %> </td>
+    </tr>
+    <% end %>
+  </table>
+  <div>
+</div>
