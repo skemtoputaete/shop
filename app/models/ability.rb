@@ -16,6 +16,12 @@ class Ability
        if user.supervisor_role? then
          can :manage, Product
          can :manage, Category
+         can :manage, Order
+       end
+       if user.user_role? then
+         can :read, Product
+         can :read, Category
+         can :manage, Order
        end
     #
     # The first argument to `can` is the action you are giving the user

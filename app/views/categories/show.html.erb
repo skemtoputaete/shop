@@ -37,6 +37,9 @@
       <% if can? :manage, Product then %>
       <th colspan="2" class="text-center">Действия</th>
       <% end %>
+      <% if can? :manage, Order then %>
+      <th class="text-center">Действия</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -48,6 +51,9 @@
       <% if can? :manage, Product then%>
       <td class="text-center"><%= link_to "Редактировать", edit_product_path(product)%></td>
       <td class="text-center"><%= link_to "Удалить", product_path(product), method: :delete%></td>
+      <% end %>
+      <% if can? :manage, Product then %>
+      <td class="text-center"><%= link_to "Заказать", "/orders/create/#{product.id}", method: :post %></th>
       <% end %>
     </tr>
     <% end %>

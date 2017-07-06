@@ -63,27 +63,3 @@
 </div>
 <hr>
 <% end %>
-
-<!-- <div>
-  <div>
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th class="text-center"> Все категории </th>
-      </tr>
-  </thead>
-  <tbody>
-    <% @categories.each do |category| %>
-    <%
-      if (@dontshow.include? category.id) then
-        next
-      end
-    %>
-    <tr>
-      <td class="text-center"> <%= link_to( category.name, category_path(category)) %> </td>
-    </tr>
-    <% end %>
-  </tbody>
-  </table>
-  <div>
-</div> -->

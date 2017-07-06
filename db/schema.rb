@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170702114210) do
+ActiveRecord::Schema.define(version: 20170706222917) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.datetime "created_at", null: false
@@ -21,11 +21,12 @@ ActiveRecord::Schema.define(version: 20170702114210) do
     t.string "name", limit: 80, null: false
     t.integer "parentId", limit: 2, default: 0, null: false, unsigned: true
     t.text "children", limit: 16777215, null: false
+    t.boolean "need_show"
     t.index ["parentId"], name: "parentId"
   end
 
   create_table "ms_product", id: :integer, limit: 3, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "category_id", limit: 2, unsigned: true
+    t.integer "category_id", limit: 2
     t.string "sale", null: false
     t.string "author", null: false
     t.integer "rating", limit: 3, unsigned: true
@@ -47,6 +48,18 @@ ActiveRecord::Schema.define(version: 20170702114210) do
     t.string "md5", limit: 32, null: false
     t.string "year", limit: 10
     t.integer "pages", limit: 2, default: 0, null: false, unsigned: true
+  end
+
+  create_table "ms_product_orders", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer "order_id"
+    t.integer "product_id"
+  end
+
+  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "status"
   end
 
   create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
