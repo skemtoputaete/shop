@@ -14,11 +14,6 @@
   </thead>
   <tbody>
   <% @categories.each do |category| %>
-  <%
-    if (@dontshow.include? category.id) then
-      next
-    end
-  %>
     <tr>
       <td><%= category.name %> </td>
       <td><%= link_to 'Показать все товары из данной категории', category_path(category)%> </td>

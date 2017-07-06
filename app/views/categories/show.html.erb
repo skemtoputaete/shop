@@ -15,11 +15,6 @@
 
   <tbody>
   <% @subcategories.each do |subcategory| %>
-  <%
-    if @dontshow.include? subcategory.id then
-      next
-    end
-  %>
     <tr>
       <td class="text-center"> <%= link_to(subcategory.name, category_path(subcategory)) %> </td>
       <% if can? :manage, Category then %>
