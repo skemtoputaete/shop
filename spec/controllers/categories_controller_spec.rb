@@ -30,9 +30,9 @@ include Devise::Test::ControllerHelpers
       category.products << product7
       category.products << product8
 
-      get :show, params: { id: category.id, page: 3 }
+      get :show, params: { id: category.id, page: 1 }
 
-      expect(category.products.paginate(page: 3, per_page: 5)).to eq(assigns(:pp))
+      expect(category.products.paginate(page: 1, per_page: 5)).to eq(assigns(:products))
 
     end
 

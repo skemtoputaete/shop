@@ -1,30 +1,55 @@
-<%= form_for :user, url: administrator_index_path do |u|  %>
-  <p>
-    <%= u.label :email, "email" %> <br>
-    <%= u.text_field :email%>
-  </p>
+<div class="page-header text-center">
+  <h2> Редактирование пользователя </h2>
+</div>
 
-  <p>
-    <%= u.label :password, "Новый пароль" %> <br>
-    <%= u.password_field :password, autocomplete: "off" %>
-  </p>
+<div class="row">
+  <div class="col-xs-4">
+  </div>
 
-  <p>
-    <%= u.label :password_confirmation, "Подтверждение пароля" %><br />
-    <%= u.password_field :password_confirmation, autocomplete: "off" %>
-  </p>
+  <div class="col-xs-4">
+    <%= form_for :user, url: administrator_index_path do |u|  %>
+    <div class="form-group">
+    <%= u.label :email, "email" %>
+    <%= u.text_field :email, class: "form-control"%>
+    </div>
 
-  <p>
-    Права для пользователя: <br>
-    <%= u.label(:admin_role, "Права администратора") %>
-    <%= u.check_box(:admin_role) %> <br>
-    <%= u.label(:supervisor_role, "Права модератора") %>
-    <%= u.check_box(:supervisor_role) %> <br>
-    <%= u.label(:user_role, "Права пользователя") %>
-    <%= u.check_box(:user_role) %> <br>
-  </p>
+    <div class="form-group">
+    <%= u.label :password, "Новый пароль" %>
+    <%= u.password_field :password, autocomplete: "off", class: "form-control" %>
+    </div>
 
-  <p>
-    <%= u.submit "Создать нового пользователя" %>
-  </p>
-<% end %>
+    <div class="form-group">
+    <%= u.label :password_confirmation, "Подтверждение пароля" %>
+    <%= u.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+    </div>
+
+
+    <p>
+    Права для пользователя:
+    </p>
+
+    <div class="check_box">
+      <label>
+      <%= u.check_box(:admin_role) %> Права администратора
+      </label>
+      <br>
+      <label>
+      <%= u.check_box(:supervisor_role) %> Права модератора
+      </label>
+      <br>
+      <label>
+      <%= u.check_box(:user_role) %> Права пользователя
+      </label>
+    </div>
+
+    <br>
+
+    <div class="form-group text-center">
+    <%= u.submit "Создать нового пользователя", class: "btn btn-default" %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="col-xs-4">
+  </div>
+</div>

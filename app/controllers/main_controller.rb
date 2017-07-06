@@ -1,6 +1,6 @@
 class MainController < ApplicationController
   def index
-    @categories = Category.where("parentId = 0")
+    @categories = Category.readonly.where("parentId = 0 and need_show = 1")
 
     @dontshow = Array.new
 
@@ -9,6 +9,10 @@ class MainController < ApplicationController
     #   if (!check) then
     #     @dontshow.push(category.id)
     #   end
+    # end
+    #
+    # @dontshow.each do |d|
+    #   @categories.destroy(id: d)
     # end
   end
 

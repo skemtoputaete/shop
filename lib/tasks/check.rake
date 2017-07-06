@@ -1,68 +1,18 @@
-class CategoriesController < ApplicationController
-  load_and_authorize_resource
+namespace :category do
 
-  def index
-    @categories = Category.where("parentId = 0")
+  #Задача для проверки глобальных категорий
+  task :check_category => :environment do
+    @categories = Category.where(parentId: 0)
 
-    @dontshow = Array.new
-
-    # @categories.each do |category|
-    #   check = checkCategory(category)
-    #   if (!check) then
-    #     @dontshow.push(category.id)
-    #   end
-    # end
-  end
-
-  def edit
-    @category = Category.find(params[:id])
-  end
-
-  def update
-    @category = Category.find(params[:id])
-    @category.update(category_params)
-    redirect_to @category
-  end
-
-  def destroy
-    @category = Category.find(params[:id])
-    deleteCategory @category
-  end
-
-  def show
-    @category = Category.find(params[:id])
-    $id = @category.id
-    @subcategories = Category.where("parentId = #{$id} and need_show = 1")
-
-    @dontshow = Array.new                 #Массив для хранения id подкатегорий
-                                          #у которых нет товаров, которые не следует выводить
-
-    # #Теперь, для каждой подкатегории необходимо определить, стоит ли ее выводить
-    # @subcategories.each do |subcategory|
-    #   check = checkSubcategory(subcategory)
-    #   if (!check) then
-    #     @dontshow.push(subcategory.id)
-    #   end
-    # end
-
-    @products = Product.where(category_id: params[:id]).paginate(page: params[:page], per_page: 5)
-  end
-
-  private
-  def category_params
-    params.require(:category).permit(:name)
-  end
-
-  #Используется для удаления категории
-  #Для того, чтобы удалить категорию, необходимо также удалить все подкатегории
-  #принадлежащие ей
-  def deleteCategory(category)
-    subcategories = Category.where(parentId: category_id)
-
-    subcategories.each do |subcategory|
-      deleteCategory subcategory
-      Product.destroy_all(category_id: subcategory.id)
-      Category.destroy(subcategory.id)
+    @categories.each do |category|
+      check = checkCategory(category)
+      if !check then
+        category.need_show = false
+        category.save
+      else
+        category.need_show = true
+        category.save
+      end
     end
   end
 
@@ -72,17 +22,24 @@ class CategoriesController < ApplicationController
     #Для каждой категории находим подкатегорию
     subcategories = Category.where(parentId: category.id)
 
+    res = false
+
     #Каждую подкатегорию проверяем
     subcategories.each do |subcategory|
       check = checkSubcategory(subcategory)
-      if(check) then
-        return true
+      if check then
+        subcategory.need_show = true
+        subcategory.save
+        res = true
+      else
+        subcategory.need_show = false
+        subcategory.save
       end
     end
 
     #Если ни одна из подкатегорий не удовлетворила критерию поиска
     #Возвращаем ложное значение
-    return false
+    return res
   end
 
   def checkSubcategory(subcategory)
@@ -99,13 +56,19 @@ class CategoriesController < ApplicationController
 
     #Если подкатегория имеет собственные товары, то ее необходимо вывести в списке
     if ( countProducts > 0 ) then
+      subcategory.need_show = true
+      subcategory.save
       return true
     end
 
     #Если подкатегория не имеет собственных товаров и потомков, ее не нужно выводить
     if (!hasChildren) then
+      subcategory.need_show = false
+      subcategory.save
       return false
     end
+
+    res = false
 
     #В противном случае, когда у подкатегории нет собственных товаров, но есть потомки
     #Потомков подкатегории необходимо исследовать дополнительно, т.к. у них могут быть товары
@@ -113,14 +76,18 @@ class CategoriesController < ApplicationController
     children = Category.where(parentId: subcategory.id)
     children.each do |child|
       check = checkSubcategory(child)
-      if (check) then
-        return true
+      if check then
+        child.need_show = true
+        child.save
+        res = true
+      else
+        child.need_show = false
+        child.save
       end
     end
 
     #Если мы прошли проверку всех потомков и при этом не вернулись из функции
     #Значит подкатегорию выводить не стоит
-    return false
+    return res
   end
-
 end

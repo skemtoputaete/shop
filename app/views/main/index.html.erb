@@ -1,7 +1,70 @@
 <div class="page-header text-center">
   <h1> Главная страница интернет-магазина </h1>
 </div>
-<div>
+
+<div class="hero-unit">
+  <p>
+    Наш интернет-магазин обладает широким перечнем товаров в самых различных категориях. У нас Вы можете найти любой интересующий Вас товар по приемлимым ценам.
+  </p>
+</div>
+
+<h3 class="text-center"> Основные категории товаров </h3>
+
+<hr>
+<% $count  = @categories.count %>
+<% $lines  = $count / 6 %>
+<% $remain = $count % 6 %>
+<% if $lines > 0 then %>
+<%   $l = 1 %>
+<%   $k = 6 %>
+<%   while $l <= $lines do %>
+<div class="row text-center">
+  <%   $element = 0 %>
+  <%   while $element < 6 do %>
+  <div class="col-xs-2">
+  <%     $index = $element + ($l - 1) * $k %>
+  <%=    link_to @categories[$index].name, category_path(@categories[$index]) %>
+  <%     $element += 1 %>
+  </div>
+  <%   end %>
+  <% $l += 1  %>
+</div>
+<hr>
+<%   end %>
+<% end %>
+
+<% if $remain != 0 then %>
+<div class="row text-center">
+  <% if $remain == 5 then%>
+  <div class="col-xs-1">
+  </div>
+  <% $element = 0 %>
+  <%   while $element < $remain do %>
+    <div class="col-xs-2">
+    <%   $index = $element + $lines * $k %>
+    <%=  link_to @categories[$index].name, category_path(@categories[$index]) %>
+    <%   $element += 1 %>
+    </div>
+  <%   end %>
+  <div class="col-xs-1">
+  </div>
+  <% end %>
+  <% if $remain != 5 then %>
+  <% $columns = 12 / $remain %>
+  <% $element = 0 %>
+  <%   while $element < $remain do %>
+  <div class="col-xs-<%= $columns %>">
+  <%     $index = $element + $lines * $k %>
+  <%=    link_to @categories[$index].name, category_path(@categories[$index]) %>
+  <%     $element += 1 %>
+  </div>
+  <%   end %>
+  <% end %>
+</div>
+<hr>
+<% end %>
+
+<!-- <div>
   <div>
   <table class="table table-hover">
     <thead>
@@ -23,4 +86,4 @@
   </tbody>
   </table>
   <div>
-</div>
+</div> -->
