@@ -26,6 +26,9 @@
         <% if can? :manage, :all then %>
         <li><%= link_to "Страница администратора", administrator_index_path%></li>
         <% end %>
+        <% if can? :manage, Order then %>
+        <li><%= link_to "Ваши заказы", orders_path%></li>
+        <% end %>
       </ul>
       <li>
     <% else %>

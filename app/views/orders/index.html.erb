@@ -1,2 +1,48 @@
-<h1>Orders#index</h1>
-<p>Find me in app/views/orders/index.html.erb</p>
+<div class="page-header hero-unit text-center">
+  <h2>Информация о заказах</h2>
+</div>
+
+<div>
+  <p>Здесь Вы можете просмотреть всю информацию о Ваших заказах.</p>
+  <p>Ниже можно увидеть инофрмацию о неоформленных заказах, если они имеются. Вы можете их редактировать.</p>
+</div>
+
+<div>
+<% if @orders.count == 0 then %>
+  <p class="lead">У Вас нет ни одного активного заказа. </p>
+<% end %>
+
+<% @orders.each do |order| %>
+  Заказ № <%= order.id %> <br>
+  Статус: <% if !order.status then %> не выполнен <% else %> выполнен <% end %>
+  <% $products = order.products %>
+  <table>
+    <thead>
+      <tr>
+        <th>Наименование товара</th>
+        <th>Стоимость</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% $products.each do |product| %>
+      <tr>
+        <td>
+          <%= product.name %>
+        </td>
+        <td>
+          <%= product.price %>
+        </td>
+        <td>
+          <%= link_to "Удалить", "orders/delete_product/#{order.id}/#{product.id}", method: :delete %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to "Приобрести товары из заказа", "orders/buy/#{order.id}", methot: :get %>
+  <%= link_to "Удалить заказ", order_path(order), method: :delete %>
+<% end %>
+
+<p> <%= link_to "Просмотреть историю заказов", "orders/history" %> </p>
+</div>

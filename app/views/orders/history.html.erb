@@ -1,0 +1,29 @@
+<div class="page-header hero-unit text-center">
+  <h2>История заказов</h2>
+</div>
+
+<% @orders.each do |order| %>
+  Заказ № <%= order.id %> <br>
+  Статус: <% if !order.status then %> не выполнен <% else %> выполнен <% end %>
+  <% $products = order.products %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Наименование товара</th>
+        <th>Стоимость</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% $products.each do |product| %>
+      <tr>
+        <td>
+          <%= product.name %>
+        </td>
+        <td>
+          <%= product.price %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
