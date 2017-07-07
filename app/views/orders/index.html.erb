@@ -16,12 +16,12 @@
   Заказ № <%= order.id %> <br>
   Статус: <% if !order.status then %> не выполнен <% else %> выполнен <% end %>
   <% $products = order.products %>
-  <table>
+  <table class="table table-hover">
     <thead>
       <tr>
         <th>Наименование товара</th>
         <th>Стоимость</th>
-        <th></th>
+        <th>Количество</th>
       </tr>
     </thead>
     <tbody>
@@ -32,6 +32,12 @@
         </td>
         <td>
           <%= product.price %>
+        </td>
+        <td>
+          <%= product.positions.where("product_id = #{product.id} and order_id = #{order.id}").first.quantity %>
+        </td>
+        <td>
+          <%= link_to "Изменить количество товара в позиции", "orders/change_quantity/#{product.positions.where("product_id = #{product.id} and order_id = #{order.id}").first.id}", method: :get %>
         </td>
         <td>
           <%= link_to "Удалить", "orders/delete_product/#{order.id}/#{product.id}", method: :delete %>

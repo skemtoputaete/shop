@@ -20,13 +20,23 @@ class OrdersController < ApplicationController
       order = order.first
     end
     product = Product.find(params[:id])
-    order.products << product
+
+    if order.products.where(id: product.id).count != 0 then
+      position = order.positions
+      position = position.where(product_id: product.id).first
+      position.quantity = position.quantity + 1
+      position.save
+    else
+      order.products << product
+    end
+
     order.save
     redirect_back(fallback_location: root_path)
   end
 
   def destroy
     order = Order.find(params[:id])
+    order.positions.destroy
     order.destroy
     redirect_back(fallback_location: root_path)
   end
@@ -48,6 +58,21 @@ class OrdersController < ApplicationController
     order   = Order.find(params[:id])
     order.products.destroy(product)
     redirect_back(fallback_location: root_path)
+  end
+
+  def change_quantity
+    @position = Position.find(params[:position_id])
+  end
+
+  def update_quantity
+    position = Position.find(params[:position_id])
+    position.update(quantity: params[:quantity])
+    redirect_to orders_path
+  end
+
+  private
+  def quantity_params
+    params.require(:position).permit(:quantity)
   end
 
 end
