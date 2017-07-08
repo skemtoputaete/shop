@@ -10,18 +10,23 @@
 <div>
 <% if @orders.count == 0 then %>
   <p class="lead">У Вас нет ни одного активного заказа. </p>
+<% else %>
+  <h3 class="text-center">Активные заказы</h3>
+  <hr>
 <% end %>
 
 <% @orders.each do |order| %>
-  Заказ № <%= order.id %> <br>
-  Статус: <% if !order.status then %> не выполнен <% else %> выполнен <% end %>
+  <p> Заказ № <%= order.id %> <p>
+  <p> Статус: <% if !order.status then %> не выполнен <% else %> выполнен <% end %> <p>
   <% $products = order.products %>
+  <% $cost = 0 %>
   <table class="table table-hover">
     <thead>
       <tr>
         <th>Наименование товара</th>
         <th>Стоимость</th>
         <th>Количество</th>
+        <th colspan="2" class="text-center">Доступные действия над заказом</th>
       </tr>
     </thead>
     <tbody>
@@ -43,12 +48,15 @@
           <%= link_to "Удалить", "orders/delete_product/#{order.id}/#{product.id}", method: :delete %>
         </td>
       </tr>
+      <% $cost += product.price * product.positions.where("product_id = #{product.id} and order_id = #{order.id}").first.quantity %>
       <% end %>
     </tbody>
   </table>
-  <%= link_to "Приобрести товары из заказа", "orders/buy/#{order.id}", methot: :get %>
-  <%= link_to "Удалить заказ", order_path(order), method: :delete %>
+  <p>Суммарная стоимость заказа = <%= $cost %></p>
+  <p><%= link_to "Приобрести товары из заказа", "orders/buy/#{order.id}", methot: :get %></p>
+  <p><%= link_to "Удалить заказ", order_path(order), method: :delete %></p>
+  <hr>
 <% end %>
 
-<p> <%= link_to "Просмотреть историю заказов", "orders/history" %> </p>
+<p class="lead"> <%= link_to "Просмотреть мою историю заказов", "orders/history" %> </p>
 </div>

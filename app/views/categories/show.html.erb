@@ -1,8 +1,51 @@
 <div class="hero-unit text-center">
   <h2><%= @category.name %></h2>
+  <hr>
 </div>
 
 <% if ( @subcategories.count > 0 ) then %>
+<% if (!user_signed_in?) or (user_signed_in? and current_user.user_role) then %>
+  <% $countSubcat = @subcategories.count %>
+  <% $lines  = $countSubcat / 3 %>
+  <% $remain = $countSubcat % 3 %>
+
+  <% if $lines > 0 then %>
+  <%   $l = 1 %>
+  <%   $k = 3 %>
+  <%   while $l <= $lines do %>
+  <div class="row text-center">
+    <%   $element = 0 %>
+    <%   while $element < 3 do %>
+    <div class="col-xs-4">
+    <%     $index = $element + ($l - 1) * $k %>
+    <%=    link_to @subcategories[$index].name, category_path(@subcategories[$index]) %>
+    <%     $element += 1 %>
+    </div>
+    <%   end %>
+    <% $l += 1  %>
+  </div>
+  <hr>
+  <%   end %>
+  <% end %>
+
+  <% if $remain != 0 then %>
+  <div class="row text-center">
+    <% $columns = 12 / $remain %>
+    <% $element = 0 %>
+    <%   while $element < $remain do %>
+    <div class="col-xs-<%= $columns %>">
+    <%     $index = $element + $lines * $k %>
+    <%=    link_to @subcategories[$index].name, category_path(@subcategories[$index]) %>
+    <%     $element += 1 %>
+    </div>
+    <%   end %>
+  </div>
+  <hr>
+  <% end %>
+
+<% end %>
+
+<% if ( @subcategories.count > 0 ) and (can? :manage, Category) then %>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -26,8 +69,9 @@
   </tbody>
 </table>
 <% end %>
+<% end %>
 
-<% if ( @products.count != 0) then%>
+<% if ( @products.count != 0) then %>
 <table class="table table-hover">
   <thead>
     <tr>
@@ -37,7 +81,7 @@
       <% if can? :manage, Product then %>
       <th colspan="2" class="text-center">Действия</th>
       <% end %>
-      <% if can? :manage, Order then %>
+      <% if (can? :manage, Order) and user_signed_in? then %>
       <th class="text-center">Действия</th>
       <% end %>
     </tr>
@@ -52,7 +96,7 @@
       <td class="text-center"><%= link_to "Редактировать", edit_product_path(product)%></td>
       <td class="text-center"><%= link_to "Удалить", product_path(product), method: :delete%></td>
       <% end %>
-      <% if can? :manage, Order then %>
+      <% if (can? :manage, Order) and user_signed_in? then %>
       <td class="text-center"><%= link_to "Заказать", "/orders/create/#{product.id}", method: :post %></th>
       <% end %>
     </tr>

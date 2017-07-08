@@ -3,14 +3,16 @@
 </div>
 
 <% @orders.each do |order| %>
-  Заказ № <%= order.id %> <br>
-  Статус: <% if !order.status then %> не выполнен <% else %> выполнен <% end %>
+  <p>Заказ № <%= order.id %></p>
+  <p>Статус: <b><% if !order.status then %> не выполнен <% else %> выполнен <% end %></b><p>
   <% $products = order.products %>
-  <table class="table table-hover">
+  <% $cost = 0 %>
+  <table class="table table-hover text-center ">
     <thead>
       <tr>
-        <th>Наименование товара</th>
-        <th>Стоимость</th>
+        <th class="text-center">Наименование товара</th>
+        <th class="text-center">Стоимость</th>
+        <th class="text-center">Количество единиц товара</th>
       </tr>
     </thead>
     <tbody>
@@ -22,8 +24,14 @@
         <td>
           <%= product.price %>
         </td>
+        <td>
+          <%= product.positions.where("product_id = #{product.id} and order_id = #{order.id}").first.quantity %>
+        </td>
       </tr>
+      <% $cost += product.price * product.positions.where("product_id = #{product.id} and order_id = #{order.id}").first.quantity %>
       <% end %>
     </tbody>
   </table>
+  <p>Суммарная стоимость заказа = <%= $cost %></p>
+  <hr>
 <% end %>
