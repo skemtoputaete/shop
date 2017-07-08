@@ -9,5 +9,8 @@
     <p class = "text-justify"> Стоимость: <%= @product.price %> </p>
     <p class = "text-justify"> Рейтинг: <%= @product.rating %> </p>
     <p class = "text-justify"> <%= @product.description %> </p>
+    <% if (can? :manage, Order) and user_signed_in? then %>
+    <p class="text-justify"><%= link_to "Заказать данный товар", "/orders/create/#{@product.id}", method: :post %></th>
+    <% end %>
   </div>
 </div>

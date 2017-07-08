@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @products = Product.all
+    @products = Product.where("rating > 1000").order('id DESC').limit(9)
   end
 
   def show

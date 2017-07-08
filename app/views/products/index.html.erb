@@ -1,4 +1,31 @@
+<div class="jumbotron">
 <h1>Все товары</h1>
+</div>
+
+<% $lines = @products.count / 3 %>
+<% $i = 0 %>
+<% $k = 3 %>
+<% while $i < $lines do %>
+<div class="row">
+  <% $element = 0 %>
+  <% while $element < 3 do %>
+  <% $index = $element + ($i - 1) * $k %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="<%= @products[$index].picture %>">
+      <div class="caption">
+        <h3> <%= link_to @products[$index].name, product_path(@products[$index]) %> </h3>
+        <p> <% @products[$index].description %> </p>
+      </div>
+    </div>
+  </div>
+  <% $element += 1 %>
+  <% end %>
+</div>
+<% $i += 1 %>
+<% end %>
+
+
 
 <table>
   <tr>
