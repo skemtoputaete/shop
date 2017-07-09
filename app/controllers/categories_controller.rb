@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     $id = @category.id
     @subcategories = Category.where("parentId = #{$id} and need_show = 1")
-    @products = Product.where(category_id: params[:id]).paginate(page: params[:page], per_page: 5)
+    @products = Product.where(category_id: params[:id]).paginate(page: params[:page], per_page: 3)
   end
 
   private

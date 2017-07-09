@@ -1,5 +1,6 @@
-<div class="jumbotron">
-<h1>Все товары</h1>
+<div class="page-header text-center">
+  <p class="lead text-center"><%= link_to "Перейти к просмотру всех категорий", categories_path %></p>
+  <h2>Топ девять товаров интернет-магазина</h2>
 </div>
 
 <% $lines = @products.count / 3 %>
@@ -24,21 +25,3 @@
 </div>
 <% $i += 1 %>
 <% end %>
-
-
-
-<table>
-  <tr>
-    <th>Название товара</th>
-    <th>Ссылка на категорию</th>
-    <th>Описание товара</th>
-  </tr>
-
-  <% @products.each do |product| %>
-    <tr>
-      <td><%= product.name %></td>
-      <td><%= link_to 'Показать все товары из данной категории', category_path(product.category_id) %></td>
-      <td><%= link_to 'Показать информацию о товаре', product_path(product) %></td>
-    </tr>
-  <% end %>
-</table>

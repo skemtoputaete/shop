@@ -79,7 +79,7 @@
       <th class="text-center">Цена товара</th>
       <th class="text-center">Превью</th>
       <% if can? :manage, Product then %>
-      <th colspan="2" class="text-center">Действия</th>
+      <th colspan="2" class="text-center">Действия над товаром</th>
       <% end %>
       <% if (can? :manage, Order) and user_signed_in? then %>
       <th class="text-center">Действия</th>
