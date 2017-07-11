@@ -65,3 +65,4 @@ group :test do
 end
 gem 'will_paginate', '~> 3.1.0'
 gem 'will_paginate-bootstrap'
+gem 'devise-i18n'

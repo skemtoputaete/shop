@@ -20,6 +20,7 @@ class CategoriesController < ApplicationController
   def destroy
     @category = Category.find(params[:id])
     deleteCategory @category
+    @category.destroy
   end
 
   def show
@@ -35,16 +36,26 @@ class CategoriesController < ApplicationController
     params.require(:category).permit(:name)
   end
 
-  #Используется для удаления категории
-  #Для того, чтобы удалить категорию, необходимо также удалить все подкатегории
-  #принадлежащие ей
+  #  Используется для удаления категории
+  #  Для того, чтобы удалить категорию,
+  #  необходимо также удалить все подкатегории принадлежащие ей
   def deleteCategory(category)
-    subcategories = Category.where(parentId: category_id)
+    #  Находим подкатегории удаляемой категории
+    subcategories = Category.where(parentId: category.id)
 
-    subcategories.each do |subcategory|
-      deleteCategory subcategory
-      Product.destroy_all(category_id: subcategory.id)
-      Category.destroy(subcategory.id)
+    if subcategories.count != 0 then
+      #  Для каждой подкатегории нужно:
+      #  1. Найти ее подкатегории
+      #  2. Удалить принадлежащие ей товары
+      #  3. Удалить подкатегорию
+      subcategories.each do |subcategory|
+        deleteCategory subcategory
+        Product.where(category_id: subcategory.id).delete_all
+        Category.delete(subcategory.id)
+      end
+    else
+      Product.where(category_id: category.id).delete_all
     end
   end
+
 end
