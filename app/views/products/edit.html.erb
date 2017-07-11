@@ -12,6 +12,14 @@
     <%= p.text_field :price,class: "form-control" %>
     </div>
   </div>
+
+  <div class="form-group">
+    <%= p.label :pic, "Изображение", class: "col-xs-2 control-label" %>
+    <div class="col-xs-10">
+    <%= p.file_field :pic, class: "file" %>
+    </div>
+  </div>
+
   <div class="form-group">
     <%= p.label :description, "Описание", class: "col-xs-2 control-label" %>
     <div class="col-xs-10">
