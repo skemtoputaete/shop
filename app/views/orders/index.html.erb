@@ -1,18 +1,15 @@
 <script type="text/javascript" language="javascript" data-turbolinks-eval="false">
   $(document).ready(function() {
-    $(".q").bind('change', function () {
-      var id = $(this).attr('id');
+    $(".quantity").bind('change', function () {
+      var position_id = $(this).attr('id');
       var quantity = $(this).val();
       $.ajax({
         url: '<%= quantity_orders_path %>/',
         type: 'GET',
         dataType: 'html',
-        data: {position_id: id, quantity: quantity},
+        data: {position_id: position_id, quantity: quantity},
         success: function(result){
-          var r = $(result).filter($('#info_about_order'))
-          alert(JSON.stringify(r))
-          // $('body').empty()
-          // $('body').append(result)
+          $('#cost').html(result)
         }
       })
     })
@@ -48,13 +45,13 @@
         <th>Наименование товара</th>
         <th>Стоимость</th>
         <th>Количество</th>
-        <th colspan="2" class="text-center">Доступные действия над заказом</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <% products.each do |product| %>
       <% position = product.positions.where("product_id = #{product.id} and order_id = #{order.id}").first %>
-      <tr>
+      <tr id="position_<%= position.id %>">
         <td>
           <%= product.name %>
         </td>
@@ -62,21 +59,17 @@
           <%= product.price %>
         </td>
         <td>
-          <%= number_field_tag "quantity", position.quantity, min: 1, class: "form-control q", id: position.id, data: { remote: true } %>
-          <% $quantity %>
+          <%= number_field_tag "quantity", position.quantity, min: 1, class: "form-control quantity", id: position.id %>
         </td>
         <td>
-          <%= link_to "Изменить количество товара в позиции", change_quantity_orders_path(position.id), method: :get, data: { turbolinks: false } %>
-        </td>
-        <td>
-          <%= link_to "Удалить", delete_product_orders_path(order.id, product.id), method: :delete, data: { turbolinks: false } %>
+          <%= link_to "Удалить товар из заказа", delete_product_orders_path(order.id, product.id), method: :delete, remote: true %>
         </td>
       </tr>
       <% cost += product.price * position.quantity %>
       <% end %>
     </tbody>
   </table>
-  <p>Суммарная стоимость заказа = <span id="cost"><%= cost %></span></p>
+  <p>Суммарная стоимость заказа: <span id="cost"><%= cost %></span> р.</p>
   <p><%= link_to "Приобрести товары из заказа", buy_orders_path(order.id), method: :get %></p>
   <p><%= link_to "Удалить заказ", order_path(order), method: :delete %></p>
   <hr>

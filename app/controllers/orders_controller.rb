@@ -7,53 +7,67 @@ class OrdersController < ApplicationController
   end
 
   def new
-    redirect_to action: "create", id: params[:id]
+
   end
 
   def create
     user  = User.find(current_user.id)
     order = user.orders
+    # Выбираем незавершенные заказы
     order = order.where(status: false)
-
+    # Если незавершенных заказов нет, то
     if order.count == 0 then
+      # Создаем новый
       order = Order.create(user_id: current_user.id, status: 0)
     else
+      # В противном случае используем самый первый незавершенный заказ
       order = order.first
     end
 
     product = Product.find(params[:id])
-
+    # Если в данном заказе уже имеется тот товар, который пользователь хочет добавить, то
     if order.products.where(id: product.id).count != 0 then
-      position = order.positions
-      position = position.where(product_id: product.id).first
-      position.quantity = position.quantity + 1
+      # Увеличиваем количество товара в заказе
+      position = order.positions.where(product_id: product.id).first
+      position.quantity += 1
       position.save
     else
+      # Иначе добавляем данный в заказ
       order.products << product
     end
 
+    # Ответ AJAX
     respond_to do |format|
       if order.save
         format.html { redirect_back(fallback_location: root_path) }
-        format.js { render js: 'alert("Товар был успешно добавлен в активный заказ.")'}
+        format.js   { render js: 'alert("Товар был успешно добавлен в активный заказ.")'}
         format.json { render json: order, status: :created, location: order }
       else
         format.html { redirect_back(fallback_location: root_path) }
         format.json { render json: order.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   def destroy
     order = Order.find(params[:id])
-    order.positions.destroy
-    order.destroy
-    redirect_back(fallback_location: root_path)
+
+    # Проверяем, не хочет ли пользователь удалить чужой заказ или уже завершенный
+    if (order.user_id == current_user.id) && (!order.status) then
+      Positions.where(order_id: order.id).delete_all
+      order.destroy
+      flash[:notice] = "Заказ был успешно удален."
+      redirect_back(fallback_location: root_path)
+    else
+      flash[:notice] = "Заказа с таким номером не существует."
+      redirect_back(fallback_location: root_path)
+    end
+
   end
 
   def history
-    user  = User.find(current_user.id)
-    @orders = user.orders
+    @orders = User.find(current_user.id).orders
   end
 
   def buy
@@ -66,21 +80,39 @@ class OrdersController < ApplicationController
   def delete_product
     product = Product.find(params[:product_id])
     order   = Order.find(params[:id])
-    order.products.destroy(product)
-    redirect_back(fallback_location: root_path)
-  end
+    # Определяем позицию товара в заказе
+    # Необходимо для JavaScript
+    @position_id = order.positions.where(product_id: product.id).first.id
+    # Находим все активные заказы текущего пользователя
+    # Это также необходимо для JavaScript
+    @orders = User.find(current_user.id).orders.where(status: false)
 
-  def change_quantity
-    @position = Position.find(params[:position_id])
+    res = order.products.destroy(product)
+
+    # Ответ AJAX
+    respond_to do |format|
+      if res
+        format.html { redirect_to orders_path }
+        format.js
+        format.json { render json: order, status: :created, location: order }
+      else
+        format.html { redirect_back(fallback_location: root_path) }
+        format.json { render json: order.errors, status: :unprocessable_entity }
+      end
+    end
+
   end
 
   def update_quantity
     position = Position.find(params[:position_id])
     res = position.update(quantity: params[:quantity])
 
+    user  = User.find(current_user.id)
+    @orders = user.orders.where(status: false)
+
     respond_to do |format|
       if res
-        format.html { redirect_to orders_path }
+        format.html { render partial: "cost_order", locals: { orders: @orders } }
         format.js { render js: 'alert("Количество товара было успешно изменено!")'}
         format.json { render json: order, status: :created, location: order }
       else
@@ -89,8 +121,6 @@ class OrdersController < ApplicationController
       end
     end
 
-    # position.update(quantity: params[:quantity])
-    # redirect_to orders_path
   end
 
   private

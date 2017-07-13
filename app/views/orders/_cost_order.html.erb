@@ -1,0 +1,9 @@
+<% orders.each do |order| %>
+  <% products = order.products %>
+  <% cost = 0 %>
+  <% products.each do |product| %>
+    <% position = product.positions.where("product_id = #{product.id} and order_id = #{order.id}").first %>
+    <% cost += product.price * position.quantity %>
+  <% end %>
+  <span id="cost"><%= cost %></span>
+<% end %>
