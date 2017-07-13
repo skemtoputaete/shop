@@ -11,9 +11,11 @@ class OrdersController < ApplicationController
       end
 
       @parametres.each do |key, value|
-        position = Position.find(key)
-        position.quantity = value
-        position.save
+        if value > 0 then
+          position = Position.find(key)
+          position.quantity = value
+          position.save
+        end
       end
     end
 

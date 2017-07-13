@@ -33,9 +33,6 @@ class AdministratorController < ApplicationController
   private
 
   def administrator_params
-    #if params[:password] != params[:password_confirmation] then
-    #  return false
-    #end
     params.require(:user).permit(:email, :password, :password_confirmation, :admin_role, :supervisor_role, :user_role)
   end
 

@@ -3,15 +3,20 @@
     $(".quantity").bind('change', function () {
       var position_id = $(this).attr('id');
       var quantity = $(this).val();
-      $.ajax({
-        url: '<%= quantity_orders_path %>/',
-        type: 'GET',
-        dataType: 'html',
-        data: {position_id: position_id, quantity: quantity},
-        success: function(result){
-          $('#cost').html(result)
-        }
-      })
+      if (quantity < 1) {
+         alert('Количество товара должно быть больше единицы!');
+      }
+      else {
+        $.ajax({
+          url: '<%= quantity_orders_path %>/',
+          type: 'GET',
+          dataType: 'html',
+          data: {position_id: position_id, quantity: quantity},
+          success: function(result){
+            $('#cost').html(result)
+          }
+        })
+      }
     })
   })
 </script>
