@@ -2,6 +2,21 @@ class OrdersController < ApplicationController
   load_and_authorize_resource
 
   def index
+    # На случай, если был выключен JavaScript
+    if !params.empty? then
+      @parametres = Hash.new
+      params.each do |param|
+        break if param == "commit" || param == "controller"
+        @parametres[param] = params[param]
+      end
+
+      @parametres.each do |key, value|
+        position = Position.find(key)
+        position.quantity = value
+        position.save
+      end
+    end
+
     if current_user != nil then
       user  = User.find(current_user.id)
       @orders = user.orders.where(status: false)
@@ -105,6 +120,10 @@ class OrdersController < ApplicationController
 
   end
 
+  def change_quantity
+    @position = Position.find(params[:position_id])
+  end
+
   def update_quantity
     position = Position.find(params[:position_id])
     res = position.update(quantity: params[:quantity])
@@ -115,7 +134,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if res
         format.html { render partial: "cost_order", locals: { orders: @orders } }
-        format.js { render js: 'alert("Количество товара было успешно изменено!")'}
+        format.js
         format.json { render json: order, status: :created, location: order }
       else
         format.html { redirect_back(fallback_location: root_path) }

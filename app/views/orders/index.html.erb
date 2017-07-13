@@ -1,4 +1,4 @@
-<script type="text/javascript" language="javascript" data-turbolinks-eval="false">
+<script type="text/javascript" language="javascript">
   $(document).ready(function() {
     $(".quantity").bind('change', function () {
       var position_id = $(this).attr('id');
@@ -25,7 +25,7 @@
   <p>Ниже можно увидеть инофрмацию о неоформленных заказах, если они имеются. Вы можете их редактировать.</p>
 </div>
 
-<div id="info_about_order">
+<form id="info_about_order">
 
 <% if @orders.count == 0 then %>
   <p class="lead">У Вас нет ни одного активного заказа. </p>
@@ -42,9 +42,9 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>Наименование товара</th>
-        <th>Стоимость</th>
-        <th>Количество</th>
+        <th class="text-center">Наименование товара</th>
+        <th class="text-center">Стоимость</th>
+        <th class="text-center">Количество</th>
         <th></th>
       </tr>
     </thead>
@@ -56,13 +56,13 @@
           <%= product.name %>
         </td>
         <td>
-          <%= product.price %>
+          <%= product.price %> р.
         </td>
         <td>
-          <%= number_field_tag "quantity", position.quantity, min: 1, class: "form-control quantity", id: position.id %>
+          <%= number_field_tag "quantity", position.quantity, min: 1, class: "form-control quantity", id: position.id, name: position.id %>
         </td>
         <td>
-          <%= link_to "Удалить товар из заказа", delete_product_orders_path(order.id, product.id), method: :delete, remote: true %>
+          <%= link_to "Удалить товар из заказа", delete_product_orders_path(order.id, product.id), remote: true, method: :delete %>
         </td>
       </tr>
       <% cost += product.price * position.quantity %>
@@ -72,8 +72,10 @@
   <p>Суммарная стоимость заказа: <span id="cost"><%= cost %></span> р.</p>
   <p><%= link_to "Приобрести товары из заказа", buy_orders_path(order.id), method: :get %></p>
   <p><%= link_to "Удалить заказ", order_path(order), method: :delete %></p>
+  <noscript>
+    <p class="text-center"><%= submit_tag("Пересчитать стоимость заказа", class: "btn btn-default") %></p>
+  </noscript>
   <hr>
 <% end %>
-
 <p class="lead"> <%= link_to "Просмотреть мою историю заказов", "orders/history" %> </p>
-</div>
+</form>

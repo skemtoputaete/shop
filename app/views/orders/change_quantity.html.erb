@@ -1,0 +1,22 @@
+<div class="page-header text-center">
+  <h2>Изменение количества единиц товара в заказе</h2>
+</div>
+<div class="row">
+  <div class="col-xs-4">
+  </div>
+  <div class="col-xs-4">
+    <%= form_tag(patch_quantity_orders_path, class: "form-horizontal", method: :patch) do %>
+    <div class="form-group">
+      <%= label_tag(@position.id, "Количество единиц товара", class: "control-label") %>
+      <%= number_field_tag "quantity", @position.quantity, min: 1, class: "form-control" %>
+    </div>
+    <div class="form-group text-center">
+    <div>
+      <%= submit_tag "Сохранить изменения", class: "btn btn-default" %>
+    </div>
+    </div>
+    <% end %>
+  </div>
+  <div class="col-xs-4">
+  </div>
+</div>

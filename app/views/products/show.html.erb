@@ -10,7 +10,7 @@
     <p class = "text-justify"> Рейтинг: <%= @product.rating %> </p>
     <p class = "text-justify"> <%= @product.description %> </p>
     <% if (can? :manage, Order) and user_signed_in? then %>
-    <p class="text-justify"><%= link_to "Заказать данный товар", "/orders/create/#{@product.id}", method: :post %></th>
+    <p class="text-justify"><%= link_to "Заказать", add_product_orders_path(@product.id), method: :post, remote: true %></th>
     <% end %>
   </div>
 </div>
