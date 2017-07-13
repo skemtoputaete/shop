@@ -18,7 +18,7 @@ class Ability
          can :manage, Category
          can :manage, Order
        end
-       if user.user_role? then
+       if user.user_role? && user.id != nil then
          can :read, Product
          can :read, Category
          can :manage, Order

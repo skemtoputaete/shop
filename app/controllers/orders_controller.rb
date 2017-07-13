@@ -2,8 +2,10 @@ class OrdersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    user  = User.find(current_user.id)
-    @orders = user.orders.where(status: false)
+    if current_user != nil then
+      user  = User.find(current_user.id)
+      @orders = user.orders.where(status: false)
+    end
   end
 
   def new
