@@ -97,7 +97,7 @@
       <td class="text-center"><%= link_to "Удалить", product_path(product), method: :delete%></td>
       <% end %>
       <% if (can? :manage, Order) and user_signed_in? then %>
-      <td class="text-center"><%= link_to "Заказать", "/orders/create/#{product.id}", method: :post %></th>
+      <td class="text-center"><%= link_to "Заказать", add_product_orders_path(product.id), method: :post, remote: true %></td>
       <% end %>
     </tr>
     <% end %>

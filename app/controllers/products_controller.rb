@@ -16,8 +16,6 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     @product.update(product_params)
-    #  @product.pic = params[:pic]
-    #  @product.save
     redirect_to @product
   end
 

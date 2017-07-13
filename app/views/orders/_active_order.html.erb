@@ -1,43 +1,13 @@
-<script type="text/javascript" language="javascript" data-turbolinks-eval="false">
-  $(document).ready(function() {
-    $(".q").bind('change', function () {
-      var id = $(this).attr('id');
-      var quantity = $(this).val();
-      $.ajax({
-        url: '<%= quantity_orders_path %>/',
-        type: 'GET',
-        dataType: 'html',
-        data: {position_id: id, quantity: quantity},
-        success: function(result){
-          var r = $(result).filter($('#info_about_order'))
-          alert(JSON.stringify(r))
-          // $('body').empty()
-          // $('body').append(result)
-        }
-      })
-    })
-  })
-</script>
-
-<div class="page-header hero-unit text-center">
-  <h2>Информация о заказах</h2>
-</div>
-
-<div>
-  <p>Здесь Вы можете просмотреть всю информацию о Ваших заказах.</p>
-  <p>Ниже можно увидеть инофрмацию о неоформленных заказах, если они имеются. Вы можете их редактировать.</p>
-</div>
-
 <div id="info_about_order">
 
-<% if @orders.count == 0 then %>
+<% if orders.count == 0 then %>
   <p class="lead">У Вас нет ни одного активного заказа. </p>
 <% else %>
   <h3 class="text-center">Активные заказы</h3>
   <hr>
 <% end %>
 
-<% @orders.each do |order| %>
+<% orders.each do |order| %>
   <p> Заказ № <%= order.id %> <p>
   <p> Статус: <% if !order.status then %> не выполнен <% else %> выполнен <% end %> <p>
   <% products = order.products %>

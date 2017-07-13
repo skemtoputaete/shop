@@ -14,11 +14,13 @@ class OrdersController < ApplicationController
     user  = User.find(current_user.id)
     order = user.orders
     order = order.where(status: false)
+
     if order.count == 0 then
       order = Order.create(user_id: current_user.id, status: 0)
     else
       order = order.first
     end
+
     product = Product.find(params[:id])
 
     if order.products.where(id: product.id).count != 0 then
@@ -30,8 +32,16 @@ class OrdersController < ApplicationController
       order.products << product
     end
 
-    order.save
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      if order.save
+        format.html { redirect_back(fallback_location: root_path) }
+        format.js { render js: 'alert("Товар был успешно добавлен в активный заказ.")'}
+        format.json { render json: order, status: :created, location: order }
+      else
+        format.html { redirect_back(fallback_location: root_path) }
+        format.json { render json: order.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -66,8 +76,21 @@ class OrdersController < ApplicationController
 
   def update_quantity
     position = Position.find(params[:position_id])
-    position.update(quantity: params[:quantity])
-    redirect_to orders_path
+    res = position.update(quantity: params[:quantity])
+
+    respond_to do |format|
+      if res
+        format.html { redirect_to orders_path }
+        format.js { render js: 'alert("Количество товара было успешно изменено!")'}
+        format.json { render json: order, status: :created, location: order }
+      else
+        format.html { redirect_back(fallback_location: root_path) }
+        format.json { render json: order.errors, status: :unprocessable_entity }
+      end
+    end
+
+    # position.update(quantity: params[:quantity])
+    # redirect_to orders_path
   end
 
   private
