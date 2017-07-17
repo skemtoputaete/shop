@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170707213849) do
+ActiveRecord::Schema.define(version: 20170717114709) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.text "content"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "ms_category", id: :integer, limit: 2, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -36,7 +44,7 @@ ActiveRecord::Schema.define(version: 20170707213849) do
     t.string "url", null: false
     t.string "producer", null: false
     t.integer "new", limit: 1, default: 0, null: false, unsigned: true
-    t.string "picture", null: false
+    t.string "picture"
     t.string "visible", limit: 1, default: "Y", null: false
     t.integer "volume", limit: 1, default: 0, null: false, unsigned: true
     t.boolean "availabilityCode", default: true, null: false, unsigned: true
@@ -48,6 +56,7 @@ ActiveRecord::Schema.define(version: 20170707213849) do
     t.string "md5", limit: 32, null: false
     t.string "year", limit: 10
     t.integer "pages", limit: 2, default: 0, null: false, unsigned: true
+    t.string "pic"
   end
 
   create_table "ms_product_orders", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -65,7 +74,7 @@ ActiveRecord::Schema.define(version: 20170707213849) do
   create_table "positions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "order_id"
     t.integer "product_id"
-    t.integer "quantity"
+    t.integer "quantity", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -95,4 +104,5 @@ ActiveRecord::Schema.define(version: 20170707213849) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "messages", "users"
 end

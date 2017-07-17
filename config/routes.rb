@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'chat_support/show'
+
   #
   # => Маршруты для контроллера OrdersController
   #
