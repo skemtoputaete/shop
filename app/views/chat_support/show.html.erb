@@ -1,2 +1,10 @@
-<h1>ChatSupport#show</h1>
-<p>Find me in app/views/chat_support/show.html.erb</p>
+<div id="messages" data-chat-room-id="<%= @room_id %>">
+  <%= render @messages %>
+</div>
+
+<form>
+  <label>
+    Ваше сообщение:
+  </label>
+  <input type="text" data-behavior="chat_support_speaker">
+</form>

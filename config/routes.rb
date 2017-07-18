@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  get 'chat_support/show'
-
+  get 'chat_support/:id', to: 'chat_support#show'
+  get 'chat_support/', to: 'chat_support#index'
   #
   # => Маршруты для контроллера OrdersController
   #
@@ -28,4 +28,5 @@ Rails.application.routes.draw do
 
   root 'main#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  mount ActionCable.server => '/cable'
 end
