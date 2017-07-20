@@ -1,7 +1,7 @@
 <% if @chatrooms != nil then %>
 <div class="chats">
   <% @chatrooms.each do |chatroom| %>
-  <p> <%= link_to "d", show_chat_path(chatroom) %> </p>
+  <p> <%= link_to "Сообщения от пользователя #{chatroom.user.email}", show_chat_path(chatroom) %> </p>
   <% end %>
 </div>
 <% end %>

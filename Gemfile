@@ -68,3 +68,6 @@ gem 'will_paginate-bootstrap'
 gem 'devise-i18n'
 gem 'dragonfly', '~> 1.1.3'
 gem 'carrierwave', '~> 1.0'
+group :development do
+  gem 'capistrano'
+end

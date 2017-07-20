@@ -2,21 +2,27 @@ class ChatSupportController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if current_user.admin_role? then
+    if current_user.admin_role? || current_user.supervisor_role? then
       @chatrooms = Chatroom.all
     end
   end
 
   def write
-    @user = User.find(current_user.id)
-    @chatroom = @user.chatroom
-
-    if @chatroom == nil then
-      Chatroom.create(user: @user)
+    # Проверим, попал ли на данный метод посетитель с правами пользователя
+    if current_user.user_role?
+      # Найдем комнату "чата" для данного посетителя
+      @user = User.find(current_user.id)
       @chatroom = @user.chatroom
+      # Если ее не существует, то создадим
+      if @chatroom == nil then
+        Chatroom.create(user: @user)
+        @chatroom = @user.chatroom
+      end
+      # Направим пользователя в эту чат-комнату
+      redirect_to action: "show", id: @chatroom.id
+    else
+      redirect_to action: "index"
     end
-
-    redirect_to action: "show", id: @chatroom.id
   end
 
   def show
