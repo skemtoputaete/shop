@@ -51,4 +51,5 @@ production:
   <<: *default
   database: shop_production
   username: shop
-  password: <%= ENV['SHOP_DATABASE_PASSWORD'] %>
+  # password: <%= ENV['SHOP_DATABASE_PASSWORD'] %>
+  password: 1
