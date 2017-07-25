@@ -16,7 +16,7 @@
   <div class="row text-center">
     <%   $element = 0 %>
     <%   while $element < 3 do %>
-    <div class="col-xs-4">
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
     <%     $index = $element + ($l - 1) * $k %>
     <%=    link_to @subcategories[$index].name, category_path(@subcategories[$index]) %>
     <%     $element += 1 %>
@@ -42,7 +42,6 @@
   </div>
   <hr>
   <% end %>
-
 <% end %>
 
 <% if ( @subcategories.count > 0 ) and (can? :manage, Category) then %>
@@ -51,7 +50,7 @@
     <tr>
       <th class="text-center">Название подкатегории</th>
       <% if can? :manage, Category then %>
-      <th colspan="2" class="text-center"> Доступные действия над категориями </th>
+      <th colspan="2" class="text-center hidden-xs hidden-sm"> Доступные действия над категориями </th>
       <% end %>
     </tr>
   </thead>
@@ -61,8 +60,8 @@
     <tr>
       <td class="text-center"> <%= link_to(subcategory.name, category_path(subcategory)) %> </td>
       <% if can? :manage, Category then %>
-      <td class="text-center"> <%= link_to "Редактировать", edit_category_path(subcategory) %> </td>
-      <td class="text-center"> <%= link_to "Удалить", category_path(subcategory), method: :delete %> </td>
+      <td class="text-center hidden-xs hidden-sm"> <%= link_to "Редактировать", edit_category_path(subcategory) %> </td>
+      <td class="text-center hidden-xs hidden-sm"> <%= link_to "Удалить", category_path(subcategory), method: :delete %> </td>
       <% end %>
     </tr>
   <% end %>
@@ -79,10 +78,10 @@
       <th class="text-center">Цена товара</th>
       <th class="text-center">Превью</th>
       <% if can? :manage, Product then %>
-      <th colspan="2" class="text-center">Действия над товаром</th>
+      <th colspan="2" class="text-center hidden-xs hidden-sm">Действия над товаром</th>
       <% end %>
       <% if (can? :manage, Order) and user_signed_in? then %>
-      <th class="text-center">Действия</th>
+      <th class="text-center hidden-xs hidden-sm">Действия</th>
       <% end %>
     </tr>
   </thead>
@@ -91,13 +90,13 @@
     <tr>
       <td class="text-center"><%= link_to product.name, product_path(product) %></td>
       <td class="text-center"><%= product.price %></td>
-      <td class="text-center"><img class="img-rounded" style="max-width: 40%; max-heigth: 40%" src="<%= product.picture %>"></td>
+      <td class="text-center"><img class="img-rounded" style="max-width: 90%; max-heigth: 90%; min-width: 100px; min-heigth: 100px" src="<%= product.picture %>"></td>
       <% if can? :manage, Product then%>
-      <td class="text-center"><%= link_to "Редактировать", edit_product_path(product)%></td>
-      <td class="text-center"><%= link_to "Удалить", product_path(product), method: :delete%></td>
+      <td class="text-center hidden-xs hidden-sm"><%= link_to "Редактировать", edit_product_path(product)%></td>
+      <td class="text-center hidden-xs hidden-sm"><%= link_to "Удалить", product_path(product), method: :delete%></td>
       <% end %>
       <% if (can? :manage, Order) and user_signed_in? then %>
-      <td class="text-center"><%= link_to "Заказать", add_product_orders_path(product.id), method: :post, remote: true %></td>
+      <td class="text-center hidden-xs hidden-sm"><%= link_to "Заказать", add_product_orders_path(product.id), method: :post, remote: true %></td>
       <% end %>
     </tr>
     <% end %>
@@ -105,5 +104,5 @@
   </table>
   <% end %>
   <div class="text-center">
-    <%= will_paginate @products, renderer: BootstrapPagination::Rails %>
+    <%= will_paginate @products, :class => "pagination", :page_gap => "", :previous_label => "← Назад", :next_label => "Далее →", :inner_window => 0, :outer_window => 0 %>
   </div>

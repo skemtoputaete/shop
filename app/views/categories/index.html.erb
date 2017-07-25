@@ -13,10 +13,14 @@
 <div class="row text-center">
   <%   $element = 0 %>
   <%   while $element < 6 do %>
-  <div class="col-xs-2">
-  <%     $index = $element + ($l - 1) * $k %>
-  <%=    link_to @categories[$index].name, category_path(@categories[$index]) %>
-  <%     $element += 1 %>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+    <div>
+      <p>
+      <% $index = $element + ($l - 1) * $k %>
+      <%= link_to @categories[$index].name, category_path(@categories[$index]) %>
+      <% $element += 1 %>
+      </p>
+    </div>
   </div>
   <%   end %>
   <% $l += 1  %>
@@ -32,10 +36,11 @@
   </div>
   <% $element = 0 %>
   <%   while $element < $remain do %>
-    <div class="col-xs-2">
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
     <%   $index = $element + $lines * $k %>
     <%=  link_to @categories[$index].name, category_path(@categories[$index]) %>
     <%   $element += 1 %>
+    <hr>
     </div>
   <%   end %>
   <div class="col-xs-1">
@@ -45,7 +50,7 @@
   <% $columns = 12 / $remain %>
   <% $element = 0 %>
   <%   while $element < $remain do %>
-  <div class="col-xs-<%= $columns %>">
+  <div class="col-xs-<%= $columns %> col-sm-<%= $columns %> col-md-4 col-lg-4">
   <%     $index = $element + $lines * $k %>
   <%=    link_to @categories[$index].name, category_path(@categories[$index]) %>
   <%     $element += 1 %>
@@ -58,24 +63,29 @@
 <% end %>
 
 <% if can? :manage, Category %>
+<div class="hidden-md hidden-lg">
+  <p class="lead text-justify">
+    <b>
+      Выполнение операций редактирования товаров и категорий с мобильной версии сайта ограничено.
+    </b>
+  </p>
+</div>
 <table class="table table-hover text-center">
   <thead>
     <tr>
-      <th>Название категории</th>
       <th>Ссылка на все товары из данной категории</th>
       <% if can? :manage, Category then %>
-      <th colspan="2"> Доступные действия над категориями </th>
+      <th colspan="2" class="hidden-xs hidden-sm"> Доступные действия над категориями </th>
       <% end %>
     </tr>
   </thead>
   <tbody>
   <% @categories.each do |category| %>
     <tr>
-      <td><%= category.name %> </td>
-      <td><%= link_to 'Показать все товары из данной категории', category_path(category)%> </td>
+      <td><%= link_to category.name, category_path(category)%> </td>
       <% if can? :manage, Category then %>
-      <td> <%= link_to "Редактировать", edit_category_path(category) %> </td>
-      <td> <%= link_to "Удалить", category_path(category), method: :delete %> </td>
+      <td class="hidden-xs hidden-sm"> <%= link_to "Редактировать", edit_category_path(category) %> </td>
+      <td class="hidden-xs hidden-sm"> <%= link_to "Удалить", category_path(category), method: :delete %> </td>
       <% end %>
     </tr>
   <% end %>
