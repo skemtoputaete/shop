@@ -1,19 +1,34 @@
-<div class="page-header text-center">
-  <h1> Главная страница интернет-магазина </h1>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="page-header text-center">
+      <h1> Главная страница интернет-магазина </h1>
+    </div>
+  </div>
 </div>
 
-<div>
-  <p class="lead">
-    Наш интернет-магазин обладает широким перечнем товаров в самых различных категориях. У нас Вы можете найти любой интересующий Вас товар по приемлимым ценам.
-  </p>
-  <p class="text-center"><small>
-    Для того, чтобы выполнить заказ интересующего Вас товара необходимо зарегистрироваться на сайте.
-  </small></p>
-  <hr>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <p class="lead text-justify">
+      Наш интернет-магазин обладает широким перечнем товаров в самых различных категориях. У нас Вы можете найти любой интересующий Вас товар по приемлимым ценам.
+    </p>
+    <p class="text-center">
+      <small>
+        Для того, чтобы выполнить заказ интересующего Вас товара необходимо зарегистрироваться на сайте.
+      </small>
+    </p>
+    <hr>
+  </div>
 </div>
 
-<h2 class="text-center"> Основные категории товаров </h2>
-<hr>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+   <h2 class="text-center">
+     Основные категории товаров
+   </h2>
+   <hr>
+  </div>
+</div>
+
 <% $count  = @categories.count %>
 <% $lines  = $count / 6 %>
 <% $remain = $count % 6 %>
@@ -24,10 +39,14 @@
 <div class="row text-center">
   <%   $element = 0 %>
   <%   while $element < 6 do %>
-  <div class="col-xs-2">
-  <%     $index = $element + ($l - 1) * $k %>
-  <%=    link_to @categories[$index].name, category_path(@categories[$index]) %>
-  <%     $element += 1 %>
+  <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+    <div>
+      <p>
+      <% $index = $element + ($l - 1) * $k %>
+      <%= link_to @categories[$index].name, category_path(@categories[$index]) %>
+      <% $element += 1 %>
+      </p>
+    </div>
   </div>
   <%   end %>
   <% $l += 1  %>
@@ -43,10 +62,11 @@
   </div>
   <% $element = 0 %>
   <%   while $element < $remain do %>
-    <div class="col-xs-2">
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
     <%   $index = $element + $lines * $k %>
     <%=  link_to @categories[$index].name, category_path(@categories[$index]) %>
     <%   $element += 1 %>
+    <hr>
     </div>
   <%   end %>
   <div class="col-xs-1">
@@ -56,7 +76,7 @@
   <% $columns = 12 / $remain %>
   <% $element = 0 %>
   <%   while $element < $remain do %>
-  <div class="col-xs-<%= $columns %>">
+  <div class="col-xs-<%= $columns %> col-sm-<%= $columns %> col-md-4 col-lg-4">
   <%     $index = $element + $lines * $k %>
   <%=    link_to @categories[$index].name, category_path(@categories[$index]) %>
   <%     $element += 1 %>
