@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'search/search'
+
   get 'chat_support/write', to: 'chat_support#write'
   get 'chat_support/:id', to: 'chat_support#show', as: "show_chat"
   get 'chat_support/', to: 'chat_support#index'

@@ -74,3 +74,4 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
 end
+gem 'thinking-sphinx', '~> 3.3.0'

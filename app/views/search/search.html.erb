@@ -1,0 +1,18 @@
+<%= form_tag( { controller: "search", action: "search" }, method: "get") do %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag "Search", :name => nil %>
+<% end %>
+
+<% if @results != nil then%>
+  <% @results.each do |result| %>
+  <div class="row" style="background:white; margin-top:5px; border-radius:10px">
+    <div class="col-md-2">
+      <strong><%= result.name %></strong>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+      <%=  result.description %>
+    </div>
+  </div>
+  <% end %>
+<% end %>
