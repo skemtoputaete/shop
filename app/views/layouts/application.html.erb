@@ -7,6 +7,8 @@
     <%= csrf_meta_tags %>
     <script type="text/javascript" src="//code.jquery.com/jquery-3.2.1.js"></script>
     <%= stylesheet_link_tag    'pagination' %>
+    <%= stylesheet_link_tag    'preview-image' %>
+    <%= stylesheet_link_tag    'description-image' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -33,6 +35,8 @@
             <li>
               <%= link_to "Товары", products_path %>
             </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
             <li class="dropdown">
               <%= link_to("#", :class => "dropdown-toggle", :data => { :toggle => "dropdown"}) do %>

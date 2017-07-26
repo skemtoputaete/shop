@@ -1,0 +1,9 @@
+.description-image {
+  display: block;
+  float: left;
+  padding-right: 3px;
+  padding-bottom: 3px;
+  margin-bottom: 1px;
+  max-height: 100%;
+  width: auto;
+}
