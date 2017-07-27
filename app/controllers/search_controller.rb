@@ -1,11 +1,17 @@
 class SearchController < ApplicationController
   def search
-    if params[:search] != nil then
+    if params[:search] != "" then
+      @results = Product.search(params[:search])
+    end
+  end
+
+  def search_autocomplete
+    if params[:search] != "" then
       @results = Product.search(params[:search])
 
       respond_to do |format|
         if @results
-          format.html { render partial: 'result', collection: @results }
+          format.html { render partial: 'result_autocomplete', collection: @results, as: :result }
           format.js
           format.json
         else
@@ -15,4 +21,5 @@ class SearchController < ApplicationController
       end
     end
   end
+
 end

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
     <script type="text/javascript" src="//code.jquery.com/jquery-3.2.1.js"></script>
+    <%= stylesheet_link_tag    'search' %>
     <%= stylesheet_link_tag    'pagination' %>
     <%= stylesheet_link_tag    'preview-image' %>
     <%= stylesheet_link_tag    'description-image' %>
@@ -90,7 +91,9 @@
       </div>
     </div>
 
-    <div id="search-results">
+    <div class="container search-autocomplete">
+      <div id="search-results" class="search-results">
+      </div>
     </div>
 
   <% flash.each do |name, msg| %>

@@ -34,3 +34,26 @@ set :deploy_to, "/home/deployer/projects/shop"
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+
+namespace :puma do
+  after :finishing, :restart_puma
+
+  desc 'Restart the Puma Background Worker'
+  task :restart_puma do
+    on roles(:app) do
+      run "sudo restart shop"
+    end
+  end
+end
+
+namespace :thinkingsphinx do
+  after :restart_puma, :restart_ts
+
+  desc 'Restart the sphinxsearch'
+  task :restart_ts do
+    on roles(:app) do
+      run "cd /home/deployer/projects/shop/current"
+      run "RAILS_ENV=production bundle exec rake ts:start"
+    end
+  end
+end

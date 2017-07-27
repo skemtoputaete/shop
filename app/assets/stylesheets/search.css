@@ -1,0 +1,22 @@
+.search-autocomplete {
+  background-color: white;
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  left: 0;
+  max-width: 600px;
+}
+
+.search-results {
+  border: 1px;
+  border-radius: 2px;
+  border-color: grey;
+}
+
+.search-result {
+  border-bottom: 2px;
+  border-bottom-color: grey;
+  border-bottom-width: thin;
+  padding-top: 2px;
+  margin: 1px;
+}
