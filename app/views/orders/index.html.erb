@@ -1,26 +1,3 @@
-<script type="text/javascript" language="javascript">
-  $(document).ready(function() {
-    $(".quantity").bind('change', function () {
-      var position_id = $(this).attr('id');
-      var quantity = $(this).val();
-      if (quantity < 1) {
-         alert('Количество товара должно быть больше единицы!');
-      }
-      else {
-        $.ajax({
-          url: '<%= quantity_orders_path %>/',
-          type: 'GET',
-          dataType: 'html',
-          data: {position_id: position_id, quantity: quantity},
-          success: function(result){
-            $('#cost').html(result)
-          }
-        })
-      }
-    })
-  })
-</script>
-
 <div class="page-header hero-unit text-center">
   <h2>Информация о заказах</h2>
 </div>

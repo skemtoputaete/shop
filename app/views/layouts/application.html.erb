@@ -11,6 +11,8 @@
     <%= stylesheet_link_tag    'description-image' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'change_quantity.js' %>
+    <%= javascript_include_tag 'search_query.js' %>
   </head>
 
   <body>
@@ -36,6 +38,12 @@
               <%= link_to "Товары", products_path %>
             </li>
           </ul>
+          <%= form_tag("/search/search", method: "get", class: "navbar-form navbar-left") do %>
+            <div class="form-group">
+              <%= text_field_tag :search, params[:search], placeholder: "Поиск", class: "form-control", id: "search-field" %>
+            </div>
+            <%= submit_tag "Искать", name: nil, class: "btn btn-default" %>
+          <% end %>
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
             <li class="dropdown">
@@ -80,6 +88,9 @@
           </ul>
         </div>
       </div>
+    </div>
+
+    <div id="search-results">
     </div>
 
   <% flash.each do |name, msg| %>
