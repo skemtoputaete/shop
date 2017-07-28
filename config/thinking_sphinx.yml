@@ -1,0 +1,11 @@
+development:
+  morphology: stem_enru
+  charset_type: utf-8
+
+test:
+  morphology: stem_enru
+  charset_type: utf-8
+
+production:
+  morphology: stem_enru
+  charset_type: utf-8

@@ -51,7 +51,8 @@ namespace :thinkingsphinx do
   task :restart_ts do
     on roles(:app) do
       execute "cd /home/deployer/projects/shop/current"
-      execute "RAILS_ENV=production bundle exec rake ts:stop ts:clear ts:configure ts:index ts:start"
+      execute "killall searchd"
+      execute "RAILS_ENV=production bundle exec rake ts:clear ts:configure ts:index ts:start"
     end
   end
 

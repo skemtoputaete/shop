@@ -21,3 +21,4 @@
 /config/deploy
 /config/deploy.rb
 /config/development.sphinx.conf
+/db/sphinx
