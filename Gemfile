@@ -75,3 +75,4 @@ group :development do
   gem 'capistrano-rails'
 end
 gem 'thinking-sphinx', '~> 3.3.0'
+gem 'whenever', :require => false 

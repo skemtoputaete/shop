@@ -36,7 +36,7 @@ require "capistrano/rails/migrations"
 
 require 'thinking_sphinx/capistrano'
 
-set :whenever_environment, defer { stage }
+set :whenever_environment, ->{ fetch(:stage) }
 require "whenever/capistrano"
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
