@@ -9,12 +9,14 @@
 
 .search-results {
   border: 1px;
+  border-style: solid;
   border-radius: 2px;
   border-color: grey;
 }
 
 .search-result {
   border-bottom: 2px;
+  border-bottom-style: solid;
   border-bottom-color: grey;
   border-bottom-width: thin;
   padding-top: 2px;

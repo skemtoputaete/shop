@@ -1,6 +1,7 @@
 $(document).ready(function() {
   $("#search-field").bind('keypress', function () {
     var query = $(this).val();
+    console.log('init keypress')
     if (query.length > 2) {
       $.ajax({
         url: '/search/search_autocomplete/',
