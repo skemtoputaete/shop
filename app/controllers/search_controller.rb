@@ -1,13 +1,13 @@
 class SearchController < ApplicationController
   def search
     if params[:search] != "" then
-      @results = Product.search(params[:search])
+      @results = Product.search params[:search], :page => params[:page], :per_page => 10
     end
   end
 
   def search_autocomplete
     if params[:search] != "" then
-      @results = Product.search :conditions => { :name => params[:search] }
+      @results = Product.search :conditions => { :name => params[:search] }, :page => 1, :per_page => 5
 
       respond_to do |format|
         if @results

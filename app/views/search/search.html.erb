@@ -1,3 +1,25 @@
 <% if @results != nil then%>
+<div class="info-search-results page-header">
+  <h2 class="text-center">
+    Результаты поиска
+  </h2>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <p class="lead text-center">
+        <small>Количество совпадений: <%= @results.total_entries %></small>
+      </p>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <p class="lead text-center">
+        <small>Результатов на странице: <%= @results.per_page %></small>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="container">
   <%= render partial: "result", collection: @results %>
+  <div class="text-center">
+    <%= will_paginate @results, :class => "pagination", :page_gap => "", :previous_label => "← Назад", :next_label => "Далее →", :inner_window => 0, :outer_window => 0 %>
+  </div>
+</div>
 <% end %>

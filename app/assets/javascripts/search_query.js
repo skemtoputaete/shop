@@ -1,17 +1,21 @@
 $(document).ready(function() {
-  $("#search-field").bind('keypress', function () {
+  $("#search-field").bind('keydown', function () {
     var query = $(this).val();
-    console.log('init keypress')
-    if (query.length > 2) {
+    if ( query.length > 3 ) {
       $.ajax({
         url: '/search/search_autocomplete/',
         type: 'GET',
         dataType: 'html',
         data: { search: query },
         success: function(result){
-          $('#search-results').html(result)
+          if ( result.length > 1 ) {
+            $('#search-results').html(result);
+            $('#search-results').css('display', 'block');
+          }
         }
       })
+    } else {
+      $('#search-results').css('display', 'none');
     }
   })
 });

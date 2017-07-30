@@ -4,14 +4,26 @@
   z-index: 1000;
   right: 0;
   left: 0;
+  min-width: 0px;
   max-width: 600px;
 }
 
 .search-results {
+  display: none;
   border: 1px;
   border-style: solid;
   border-radius: 2px;
   border-color: grey;
+  margin-top: 3px;
+}
+
+.autocomplete-result {
+  padding: 1px;
+  margin: 2px;
+  border-bottom: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: grey;
+  border-bottom-width: thin;
 }
 
 .search-result {
