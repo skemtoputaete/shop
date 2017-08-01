@@ -8,7 +8,7 @@ Rails.application.config.assets.version = '1.0'
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
-Rails.application.config.assets.precompile += %w( pagination.css description-image.css preview-image.css search.css )
+Rails.application.config.assets.precompile += %w( pagination.css description-image.css preview-image.css search.css messages.css )
 Rails.application.config.assets.precompile += %w( change_quantity.js search_query.js )
 # Rails.application.config.assets.precompile += %w(  )
 # Rails.application.config.assets.precompile += %w(  )

@@ -1,6 +1,22 @@
-<div id="messages" data-chat-room-id="<%= @room_id %>">
-  <%= render @messages %>
+<div class="page-header text-center">
+  <h2> Онлайн-чат с поддержкой сайта </h2>
 </div>
+
+<div class="container">
+  <div class="messages" id="messages" data-chat-room-id="<%= @room_id %>">
+    <%= render @messages %>
+  </div>
+
+  <!-- <form>
+    <label class="control-label">
+      Ваше сообщение:
+    </label>
+    <p>
+      <textarea class="input-message" data-behavior="chat_support_speaker" rows="5"> </textarea>
+    </p>
+    <input class="input-message" type="text" data-behavior="chat_support_speaker">
+  </form>
+</div> -->
 
 <form>
   <label>
@@ -8,3 +24,10 @@
   </label>
   <input type="text" data-behavior="chat_support_speaker">
 </form>
+</div>
+
+<%= form_tag do %>
+  <div class="form-group">
+    <%= text_field_tag 'a', nil, class: "form-control", data: {behavior: "chat_support_speaker"} %>
+  </div>
+<% end %>
