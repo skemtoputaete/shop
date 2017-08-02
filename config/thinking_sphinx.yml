@@ -7,5 +7,11 @@ test:
   charset_type: utf-8
 
 production:
+  indices_location: "/var/lib/sphinxsearch"
+  configuration_file: "/etc/sphinxsearch"
+  binlog_path: "/var/lib/sphinxsearch"
+  log: "/var/run/sphinxsearch"
+  query_log: "/var/run/sphinxsearch"
+  pid_file: "/var/run/sphinxsearch"
   morphology: stem_enru
   charset_type: utf-8
