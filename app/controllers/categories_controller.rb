@@ -2,9 +2,9 @@ class CategoriesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @categories = Category.where("parentId = 0 and need_show = 1")
+    @categories = Category.where('parentId = 0 and need_show = 1')
 
-    @dontshow = Array.new
+    @dontshow = []
   end
 
   def edit
@@ -43,7 +43,7 @@ class CategoriesController < ApplicationController
     #  Находим подкатегории удаляемой категории
     subcategories = Category.where(parentId: category.id)
 
-    if subcategories.count != 0 then
+    if subcategories.count != 0
       #  Для каждой подкатегории нужно:
       #  1. Найти ее подкатегории
       #  2. Удалить принадлежащие ей товары
@@ -57,5 +57,4 @@ class CategoriesController < ApplicationController
       Product.where(category_id: category.id).delete_all
     end
   end
-
 end
