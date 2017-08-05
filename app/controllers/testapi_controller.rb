@@ -30,4 +30,12 @@ class TestapiController < ApplicationController
       format.json { render json: product }
     end
   end
+
+  def categoryName
+    category = Category.find params[:id]
+    respond_to do |format|
+      format.html
+      format.json { render json: category.name }
+    end
+  end
 end
