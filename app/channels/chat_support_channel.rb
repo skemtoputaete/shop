@@ -8,8 +8,6 @@ class ChatSupportChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    # File.open('/home/maxim/projects/results.txt', 'w'){ |f| f.puts("Hello world") }
-    # msg = data['message'].force_encoding("utf-8")
-    Message.create(content: msg, user: current_user, chatroom_id: data['chat_room_id'])
+    Message.create(content: data['message'], user: current_user, chatroom_id: data['chat_room_id'])
   end
 end
