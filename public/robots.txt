@@ -5,4 +5,8 @@ Disallow: /orders
 Disallow: /testapi
 Disallow: /administrator
 Disallow: /search
-Dissalow: /assets
+Disallow: /assets
+
+User-agent: Yandex
+Disallow: /
+Host: wapgang.ru

@@ -76,3 +76,5 @@ group :development do
 end
 gem 'thinking-sphinx', '~> 3.3.0'
 gem 'whenever', :require => false
+gem 'airbrake', '~> 6.2'
+gem 'airbrake-ruby', '~> 2.3'
