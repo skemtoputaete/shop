@@ -18,6 +18,7 @@
 
 .byebug_history
 
+/config/airbrake_message
 /config/deploy
 /config/deploy.rb
 /config/development.sphinx.conf
