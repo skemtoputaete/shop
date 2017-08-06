@@ -20,5 +20,13 @@
 # Learn more: http://github.com/javan/whenever
 
 every 6.hours do
-  rake "ts:index ts:restart"
+  command "searchd --stop"
+end
+
+every '1 0,6,12,18 * * *' do
+  command "indexer --all"
+end
+
+every '2 0,6,12,18 * * *' do
+  command "searchd"
 end
