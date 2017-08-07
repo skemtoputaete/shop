@@ -2,9 +2,8 @@ class CategoriesController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @categories = Category.where('parentId = 0 and need_show = 1')
-
-    @dontshow = []
+    categories = Category.where('parentId = 0 and need_show = 1')
+    render 'index', locals: { categories: categories }
   end
 
   def edit
@@ -24,10 +23,14 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.find(params[:id])
-    $id = @category.id
-    @subcategories = Category.where("parentId = #{$id} and need_show = 1")
-    @products = Product.where(category_id: params[:id]).paginate(page: params[:page], per_page: 3)
+    # Find the parent category
+    category = Category.find(params[:id])
+    # Find children categories of the parent category
+    subcategories = Category.where("parentId = #{params[:id]} and need_show = 1")
+    # Find products belonging to parent category
+    products = Product.where(category_id: params[:id]).paginate(page: params[:page], per_page: 3)
+
+    render 'show', locals: { category: category, subcategories: subcategories, products: products }
   end
 
   private

@@ -3,57 +3,61 @@
 </div>
 
 <% if (!user_signed_in?) or (user_signed_in? and current_user.user_role) then %>
-<% $count  = @categories.count %>
-<% $lines  = $count / 6 %>
-<% $remain = $count % 6 %>
-<% if $lines > 0 then %>
-<%   $l = 1 %>
-<%   $k = 6 %>
-<%   while $l <= $lines do %>
+<% countCategories  = categories.count %>
+<% countLines  = countCategories / 6 %>
+<% excessCategories = countCategories % 6 %>
+<% categoriesOnTheLine = 6 %>
+
+<% if countLines > 0 then %>
+<%   currentLine = 1 %>
+<%   categoriesOnTheLine = 6 %>
+<%   while currentLine <= countLines do %>
 <div class="row text-center">
-  <%   $element = 0 %>
-  <%   while $element < 6 do %>
+  <%   element = 0 %>
+  <%   while element < 6 do %>
   <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
     <div>
       <p>
-      <% $index = $element + ($l - 1) * $k %>
-      <%= link_to @categories[$index].name, category_path(@categories[$index]) %>
-      <% $element += 1 %>
+      <% index = element + (currentLine - 1) * categoriesOnTheLine %>
+      <%= link_to categories[index].name, category_path(categories[index]) %>
+      <% element += 1 %>
       </p>
     </div>
   </div>
   <%   end %>
-  <% $l += 1  %>
+  <% currentLine += 1  %>
 </div>
 <hr>
 <%   end %>
 <% end %>
 
-<% if $remain != 0 then %>
+<% if excessCategories != 0 then %>
 <div class="row text-center">
-  <% if $remain == 5 then%>
+
+  <% if excessCategories == 5 then%>
   <div class="col-xs-1">
   </div>
-  <% $element = 0 %>
-  <%   while $element < $remain do %>
+  <% element = 0 %>
+  <%   while element < excessCategories do %>
     <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-    <%   $index = $element + $lines * $k %>
-    <%=  link_to @categories[$index].name, category_path(@categories[$index]) %>
-    <%   $element += 1 %>
+    <%   index = element + countLines * categoriesOnTheLine %>
+    <%=  link_to categories[index].name, category_path(categories[index]) %>
+    <%   element += 1 %>
     <hr>
     </div>
   <%   end %>
   <div class="col-xs-1">
   </div>
   <% end %>
-  <% if $remain != 5 then %>
-  <% $columns = 12 / $remain %>
-  <% $element = 0 %>
-  <%   while $element < $remain do %>
+
+  <% if excessCategories != 5 then %>
+  <% $columns = 12 / excessCategories %>
+  <% element = 0 %>
+  <%   while element < excessCategories do %>
   <div class="col-xs-<%= $columns %> col-sm-<%= $columns %> col-md-4 col-lg-4">
-  <%     $index = $element + $lines * $k %>
-  <%=    link_to @categories[$index].name, category_path(@categories[$index]) %>
-  <%     $element += 1 %>
+  <%     index = element + countLines * categoriesOnTheLine %>
+  <%=    link_to categories[index].name, category_path(categories[index]) %>
+  <%     element += 1 %>
   </div>
   <%   end %>
   <% end %>
@@ -80,7 +84,7 @@
     </tr>
   </thead>
   <tbody>
-  <% @categories.each do |category| %>
+  <% categories.each do |category| %>
     <tr>
       <td><%= link_to category.name, category_path(category)%> </td>
       <% if can? :manage, Category then %>
